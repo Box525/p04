@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Javascript 基础</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <!-- Javascript 
+    一门语言，重点放在语言上，何为语言？日常说话就是语言，向别人倾述一些内容就是语言
+    别人就按照倾述的方式去理解我们所想表达的意思
+
+    JavaScript 
+    一种脚本语言，是解释执行的语言，特征是边运行边解析（单线程）
+
+    它能做什么？
+    网页特效、用户交互、模态框、表单验证等
+    
+    在HTML中如何使用 JavaScript 语言？
+    它是通过 script 标签来进行标记，让浏览器去自动识别内容，并解析运行
+    因为是标签，可以放在HTML中的任何一个位置
+    运行/解释时/执行时是按照先后顺序来执行
+    一般情况 初始化的JS代码放在 head
+    -->
+    <script>
+        // alert('1') //单行注释
+        /*
+        多行注释
+        */ 
+
+    </script>
+    <script>
+        // 学习一般语言的规制都是 变量、函数、常量、面向对象、API和各种操作
+        // JS 变量
+        // 变量： 在程序运行期间，其值可变的量，就是变量
+        // 从字面上看，变量是可变的量；
+        // 从编程角度上讲，变量是用于存储某类/某种数值的存储器
+
+        // JS 中如何使用变量
+        // 变量要先声明 再赋值 并且 变量是可以重新赋值的
+        // 变量声明要使用关键字  var
+
+        var age = 18; // number
+        console.log(typeof age)
+        var money = 100.9
+        console.log(typeof money)
+
+        var name = 'Jack Ma';
+        console.log(typeof name)
+
+        /*
+        变量名的命名方式常用的有2种：匈牙利命名 和 驼峰命名法
+        匈牙利命名法：
+        开头字母用变量类型的缩写，其余部分用变量的英文或者英文缩写
+        要求单词的第一个字母大写
+        var iMyAge = 18;
+        var sMyName = 'TOM';
+        驼峰命名法：
+        var myAge = 18;
+        var myName = 'TOM';
+        */
+
+        var first_name = '赵';
+        var last_name = '云';
+
+        // JS中字符串的拼接 
+        var total_name = first_name + last_name + 1000;
+        console.log(total_name)
+
+        var value1 = 1+1+1+1; //4
+        value1 = 1 + 1 + '1' + 1;// 4 211 31
+        value1 = '1' + 1 + 1 + 1;//
+
+        // JS 语言 的倾述对象是浏览器
+        // 存储环境是 内存
+
+        var sex = '♂';
+        var bool_val = true;
+        var null_val = null;
+
+
+        // JS 的语句
+        // 1. if
+        if (true) {
+            console.log('True')
+        }
+        // 变量提升
+        console.log(aName);
+        console.log(bName);
+        // {  } 作用域 用来表示这是一个代码块
+        // 作用域是用来指定 代码执行的 范围
+        var aName = 12345;
+        if (true) {
+            console.log(aName);
+            var aName = 'Rose';
+            console.log(aName);
+        }else{
+            console.log('false');
+            var bName = 'Robbin'
+        }
+        console.log(aName);
+
+        // 18
+
+        var iAge = 27;
+        if (iAge < 18) {
+            console.log('未成年');
+        }else if( iAge >= 18 && iAge <= 30){
+            console.log('青壮年')
+        }else if( iAge > 30 && iAge <= 65){
+            console.log('壮年')
+        }else if( iAge > 65 && iAge < 80){
+            console.log('退休')
+        }else {
+            console.log('见马克思')
+            if (iAge === 100) {// === 表示恒等  == 表示约等
+                console.log('百岁老人')
+            }
+        }
+
+        if (1.0+2.0 == 3.0){
+            console.log('3.0')
+        }else{
+            console.log('不等于3.0')
+        }
+
+        var sName = 'TOM2';//
+        switch (sName) {// 匹配变量的值 可以是字符串 也可以是 number
+            case 'TOM':
+                console.log('TOM')
+                break;
+            case 'TOM2':
+                console.log('TOM2')
+                break;
+            case 'TOM3':
+                console.log('TOM3')
+                break;
+            default:
+                console.log('如果条件都不满足则执行 default');
+                break;
+        }
+
+        // for 循环
+        // 
+        var a = 1;
+        a = a+1;
+        a += 1;// 自增1
+        // ++  相当于 a +=1 
+        console.log(a)
+        a++;//真正的 自增1
+        console.log(a);
+
+        for(var i=0; i<10;i++){
+            // 执行体
+            console.log(i)
+        }
+        for(var i=0; i<10;i += 2){
+            // 执行体
+            console.log(i)
+        }
+
+        /*
+        1.var i = 0; i < 10 满足就执行 { 执行体 }
+        2.i++ ; i < 10 满足执行 { 执行体 }
+        var i = 0;
+        if(i < 10){
+            //执行体
+
+            i++;
+            continue;
+        }
+        */
+
+        // JS常用的 数据类型 数组 等同于 Python中list
+        var days = [1,2,3,4,5,6,7,8,9,10];
+        console.log(typeof days);
+        console.log(days.length)
+        // object '一切皆对象'
+        for(var i = 0; i<days.length;i++){
+            console.log(i,days[i])
+        }
+
+        for(var i = days.length - 1; i >= 0; i--){
+            console.log(i, days[i])
+        }
+
+        //专题 ++ --
+        var aNumber = 1;
+        // a = 1+1+1 
+        //var bNumber = aNumber++;//   bNumber= aNumber = aNumber+1;
+        var bNumber = ++aNumber;// bNumber = aNumber+1; aNumber = bNumber
+        console.log(aNumber,bNumber);// 2  1 
+        // 如果  j = i++; 如果 i在前 ++ 在后，程序会对i 先使用 在自增
+
+        // 函数 / 方法
+        console.log('***********')
+        // console.log(a_value);
+        function aFunc() {
+            // 在函数体里 使用var 定义变量 才是真正的局部变量
+            console.log(a_value);
+            var a_value = 100;
+            console.log(a_value);
+        }
+
+        aFunc();
+
+        function sum(a,b) {
+            return a+b;
+        }
+
+
+
+
+
+
+
+
+
+ 
+    </script>
+</body>
+</html>
