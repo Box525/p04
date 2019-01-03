@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定时器</title>
+</head>
+<body style='color: red;font-size: 300px;text-align: center;'>
+    <!-- 
+        定时器:每隔一段指定时间，按时按点来执行一件约定的事情(函数/方法)
+        闹钟
+        定时的常用操作：1.计算2.刷新页面
+
+     -->
+     <script>
+         var count = 0
+        //  setInterval(function () {  
+        //      count++
+        //      console.log(count)
+        //  },1000);
+
+        function doSomthing() {
+            count++
+            console.log(count)
+        }
+
+        // setInterval(doSomthing,1000)
+
+
+        function doWrite() {
+            count++
+            document.body.innerHTML = ''
+            // document.write(count)
+            document.body.innerHTML = count++
+        }
+
+        setInterval(doWrite,1000)
+
+
+     </script>
+</body>
+</html>

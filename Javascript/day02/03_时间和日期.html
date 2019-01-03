@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时间和日期</title>
+</head>
+<body>
+    <script>
+        // ECMAScript 提供了一个 Date 类型来处理时间和日期
+        var date = new Date()
+        console.log(date)
+        // Thu Jan 03 2019 15:49:13 GMT+0800 (中国标准时间)
+        // 这种时间格式称为UTC 世界统一时间格式
+        // 它是从1970年1月1日0时0分0秒开始计算到现在的毫秒
+
+        // 将日期转换成秒
+        // parse() 将指定格式的日期 转换成对应秒数
+        // 有3种日期格式
+        // 1.Thu Jan 03 2019 15:49:13 GMT+0800 (中国标准时间)
+        // 2.默认是： 月/日/年
+        // 3.英文格式: 月 日,年
+        var get_ms = Date.parse(date)
+        console.log(get_ms)
+        get_ms = Date.parse('1/1/2019')
+        console.log(get_ms)
+        get_ms = Date.parse('Jan 1,2019')
+        console.log(get_ms)
+
+        // 对当前时间进行操作
+        var my_time = new Date()
+        var year = my_time.getFullYear()
+        var month = my_time.getMonth()
+        var day = my_time.getDate()
+        var hour = my_time.getHours()
+        var week = my_time.getDay()
+        var minute = my_time.getMinutes()
+        var sec = my_time.getSeconds()
+        var msec = my_time.getMilliseconds()
+        // getTime() 获取当前的时间的毫秒
+        console.log(my_time.getTime())
+        console.log(year,month,day,hour,week,minute,sec,msec)
+        // 对指定时间进行操作
+        my_time = new Date('12/1/2018')
+        year = my_time.getFullYear()
+        month = my_time.getMonth()
+        day = my_time.getDate()
+        console.log(year,month,day)
+
+        // 倒计时功能
+        // 2月1日放假
+        // now() 类方法  getTime()对象方法
+        console.log(Date.now())
+
+        function getDownTime(dt){
+            //1.计算时间差
+            // 之间的毫秒数
+            var iMsec = dt-Date.now()
+            if(iMsec <= 0){
+                return
+            }
+
+            // iMsec 毫秒数
+            // 12月 24 60 60 1000
+            //毫秒转换成秒
+            var sec = iMsec / 1000
+            // 天
+            var day = parseInt(sec / 3600 / 24)
+            // 小时
+            var hour = parseInt((sec - day*3600*24)/3600)
+            // 分
+            var min = parseInt((sec - day*3600*24 - hour*3600)/60)
+            // 秒
+            var seconds = parseInt(sec - day*3600*24 - hour*3600 - min*60)
+
+            var time = day + '天' + hour + '时' + min + '分' + seconds + '秒'
+            console.log(time)
+
+
+        }
+
+        console.log(parseInt(4/3))
+        // dt 2019/2/1
+
+        // x 天 x 时 x 分 x 秒 x 毫秒
+        var time = new Date('2/1/2019')
+        getDownTime(time)
+    </script>
+</body>
+</html>

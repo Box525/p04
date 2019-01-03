@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>01-什么是对象</title>
+</head>
+<body>
+    <!-- 
+        JS 是面向对象的语言
+        面向对象的语言的3大特性 封装、继承、多态
+
+        什么是类
+        具有相同属性和方法的集合
+
+        什么是对象
+        对象就是类实例化
+
+        在JS中 对象其实就是一种类型 Object类型 （一切皆对象）
+        创建一个Object 对象类型有2种方式
+        1.使用 new 关键字
+        2.使用字面量表示法 （字面量：从字面上的意思来表达）
+
+        'hello world'
+        12345
+        []
+
+        对象的作用：
+        1.对数据的存储和读取
+        2.将数据和功能组织在一起
+     -->
+     <script>
+        // 1.使用new创建一个对象
+        var obj = new Object();
+        obj.name = 'Tom';
+        obj.age = 18;
+        obj.firends = ['Jack'];
+        obj.marry = false;
+        obj.house = null;
+        
+        console.log(obj)
+
+        // 2.new 可以省略
+        obj = Object();
+        obj.thinking = function (param) {  
+            console.log('人会思考',param)
+        }
+
+        obj.thinking('该吃中午饭了!!!')
+
+        // 3.字面量创建对象
+        // { }
+        obj = {
+            'name': 'Jack',
+            age:18,
+            running: function () {  
+                console.log('晨跑')
+            }
+        }
+
+        // 在早些时候 JS 是通过 函数来创建一个对象 因为 现在使用的是ES5的标准 
+        // ES5 是没有 class 关键字
+        // 通过使用 函数来伪装一个类
+
+        // 学生类
+        function Student(){
+            this.name = '张三'
+            this.age = 18
+            this.eat = function (foods) {  
+                
+            }
+            this.info = function () {  
+                return this.name + ' ' + this.age
+            }
+        }
+
+        var a_stu = new Student()
+        console.log(a_stu)
+
+        function Student2(name,age){
+            this.name = name
+            this.age = age
+            this.eat = function (foods) {  
+                
+            }
+            this.info = function () {  
+                return this.name + ' ' + this.age
+            }
+            console.log(this)
+        }
+
+        Student2('TOM',18)
+
+
+
+     </script>
+</body>
+</html>

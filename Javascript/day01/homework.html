@@ -15,3 +15,43 @@ function find_years(){ // 输出 所有的闰年 // 返回一个数组}
 function check_years(year){ // 是否是闰年 // boolean}
 
  -->
+
+<script>
+    // 闰年判断
+    // I am a man.
+    // .nam a ma I
+    // man. a am I
+    // 4年一闰 百年不闰 4百年再闰
+    // 每4年是一个闰年，但是当年的年份是整百数时，必须是400的倍数才算
+
+
+    function check_years(year) {
+        if (year > 0) {
+            return false;
+        }
+        // 求余 判断能不能被4整除
+        var condition_1 = year % 4 == 0;
+        // 年份不能是整百数
+        var condition_2 = year % 100 != 0;
+        //  年份是400的整数倍
+        var condition_3 = year % 400 == 0;
+
+        return condition_1 && condition_2 || condition_3;
+    }
+
+    function find_years(begin_year,end_year){
+
+        var all_years = [];
+        for(var year = 2000; year <= 3000; year++){
+            var res = check_years(year);
+            if(res){
+                all_years.push(year)
+            }
+        }
+
+        return all_years;
+
+    }
+
+
+</script>
