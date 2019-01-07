@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下拉折叠</title>
+    <style>
+        html,body,ul {
+            padding: 0;
+            margin: 0;
+        }
+        html {
+            font-size: 14px;
+        }
+        ul {
+            list-style: none;
+        }
+    </style>
+    <script>
+        // 动态计算 浏览器的大小 动态设置文字大小
+        window_w = window.innerWidth || document.documentElement.clientWidth
+        console.log(window_w)
+        window_w = document.documentElement.clientWidth
+        console.log(window_w)
+        // window.onload = function () {  
+        //     window_w = document.body.clientWidth
+        //     console.log(window_w)
+        // }
+        var html_el = document.documentElement
+        console.log(html_el)
+        if (window_w < 800) {
+            html_el.style.fontSize = '12px'
+        }else if(window_w >= 800){
+            html_el.style.fontSize = '14px'
+        }
+    </script>
+
+
+</head>
+<body>
+    <style>
+        /* html,body {
+            padding: 0;
+            margin: 0;
+        }
+        html {
+            font-size: 14px;
+        } */
+
+        #nav {
+            font-size: 0rem;
+            line-height: 1.5rem;
+            /* vw */
+            width: 50vw;
+            height: 10vh;
+            background-color: #eee;
+        }
+
+        #nav > div {
+            float: left;
+            width: 25%;
+            height: 100%;
+            box-sizing: border-box;
+            border: 1px solid #333;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+        #nav > div:nth-child(1) {
+            position: relative;
+        }
+        #nav > div:nth-child(1) > ul {
+            display: none;
+            background-color: #999;
+            /* 控制 显示的方向 */
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+        }
+
+    </style>
+    <div id="nav">
+        <div>
+            <span>导航001</span>
+            <img src="./arrow.png" alt=""> 
+
+            <ul>
+                <li><a href="#">第1项</a></li>
+                <li><a href="#">第2项</a></li>
+                <li><a href="#">第3项</a></li>
+                <li><a href="#">第4项</a></li>
+            </ul>
+        </div>
+        <div>导航002</div>
+        <div>导航003</div>
+        <div>导航004</div>
+    </div>
+    <div style='height: 50px;background-color: red;color: #fff'>
+        12345678
+    </div>
+</body>
+<script>
+// 动态计算 元素高度 并进行设置 行高
+    var nav = document.querySelector('#nav')
+    // offsetHeight 和 clientHeight 的区别和使用场景?
+    console.log(nav.offsetHeight,nav.clientHeight)
+    nav.style.lineHeight = nav.offsetHeight + 'px'
+    var div_one = nav.querySelector('div')
+    console.log(div_one)
+    var img_one = div_one.querySelector('img')
+    console.log(img_one)
+    img_one.style.verticalAlign = 'middle'
+    img_one.style.width = '16px'
+
+    /*
+    实现下拉的原理：
+    1.使用 display 属性 none 和 block 对内容进行控制
+    2.对显示的内容 要做处理 BFC 让显示的内容 要脱离文档流
+    */
+
+    div_one.onclick = function (event) {  
+        var el = event.target
+        // parentNode 查找指定元素的父节点
+        // tagName 表示所指定元素的名称
+        console.log(el.parentNode.tagName)
+        var flag = el.querySelector('ul').style.display
+        if (flag == 'block') {
+            flag = 'none'
+        }else{
+            flag = 'block'
+        }
+
+        el.querySelector('ul').style.display = flag
+    }
+
+</script>
+
+</html>

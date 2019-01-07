@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定时器操作</title>
+</head>
+<body style='color: red;font-size: 100px;text-align: center;'>
+    <!-- 10 的倒计时 -->
+    <script>
+        // 用来设置 指定秒的倒计时
+        function timeStep(time_sec) {
+            
+            function timekeeping() {
+
+                document.body.innerText =''
+                document.body.innerText = time_sec
+                time_sec--
+                if (time_sec < 0) {
+                    // clearInterval(timer) 停止定时器 参数为 指定的定时器
+                    clearInterval(timer)
+                    document.body.innerText =''
+                    document.body.innerText = '倒计时结束!!!'
+                }
+            }
+
+            var timer = setInterval(timekeeping,1000)
+
+        }
+
+        // timeStep(10)
+
+        // 需求：只执行1次的定时任务
+        function exec_once() {
+            document.body.innerText = ''
+            document.body.innerHTML = '5秒之后清屏.....'
+        }
+
+        setTimeout(exec_once,1000)
+
+        function exec_once2() {
+            document.body.innerText = ''
+            document.body.innerHTML = '5秒之后清屏....'
+        }
+
+        setTimeout(exec_once2,2000)
+        function exec_once3() {
+            document.body.innerText = ''
+            document.body.innerHTML = '5秒之后清屏...'
+        }
+
+        setTimeout(exec_once3,3000)
+
+        function exec_once4() {
+            document.body.innerText = ''
+            document.body.innerHTML = '5秒之后清屏..'
+        }
+
+        setTimeout(exec_once4,4000)
+
+        function exec_clear() {
+            document.body.innerText = ''
+            document.body.innerHTML = '清屏成功'
+        }
+
+        setTimeout(exec_clear,6000)
+
+        
+    </script>
+</body>
+</html>

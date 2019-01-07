@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 内容操作</title>
+</head>
+<body>
+    <!-- HTML 内容操作
+    1.HTML 内容？
+    xxx.html
+    对于程序猿来说 内容就是2个 1.标签 2.标签里的内容
+    -->
+
+    <div id="show"></div>
+
+    <!-- 动态操作 
+    1. 要找到对应的标签
+    2. 通过标签对象进行样式属性的设置
+
+    文档: document
+    -->
+    <script>
+        // 必须有个 抽象文档的对象 document
+        var show = document.getElementById('show')
+        console.log(show)
+        console.log(typeof show)
+        console.log(typeof document)
+        // 给指定元素 添加内容
+        //1.1 只添加文字内容
+        // show.innerText = '这是添加的普通文字'
+        // show.innerText = '<h1>这是标题</h1>'
+        //1.2 如果内容包含标签 则需要使用下列方式 添加内容
+        show.innerHTML = '<h1 style="color:red;">这是标题</h1>'
+        //2.改变样式
+        show.style.backgroundColor = 'black';
+        show.style.textAlign = 'center';
+    </script>
+
+    <div class="show"></div>
+    <div class="show"></div>
+    <div class="show"></div>
+
+    <div id="show2"></div>
+    <script>
+        var div_show = document.getElementsByClassName('show')
+        console.log(div_show)
+        // 动态添加 元素 新建一个元素标签
+        var new_el = document.createElement('p')
+        new_el.innerText = '这是段落'
+        new_el.style.color = '#FF0000'
+        new_el.style.backgroundColor = '#000'
+
+        // 将新建标签 添加到指定的元素中
+        div_show[0].appendChild(new_el)
+
+        // ul>li*4
+
+        var ul_element = document.createElement('ul')
+        for(var i = 0; i < 4; i++){
+            var li = document.createElement('li')
+            li.innerText = i
+            li.style.height = '50px'
+            li.style.lineHeight = '50px'
+            ul_element.appendChild(li)
+        }
+
+        div_show[1].appendChild(ul_element)
+
+        // 获取页面上所有的div
+        var all_div = document.getElementsByTagName('div')
+        console.log(all_div)
+
+    </script>
+
+
+
+    <!-- 现在的流行写法 -->
+    <script>
+        // querySelector(选择器名称) 只会找到 一个
+        var el_id = document.querySelector('#show')
+        console.log(el_id)
+        var el_class = document.querySelector('div.show')
+        console.log(el_class)
+        //
+        el_class = document.querySelectorAll('div.show')
+        console.log(el_class)
+        el_class = document.querySelectorAll('div.show>ul>li:nth-child(2),div.show,div')
+        console.log(el_class)
+    </script>
+
+    
+
+</body>
+
+</html>

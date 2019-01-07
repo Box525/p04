@@ -33,11 +33,19 @@
             document.body.innerHTML = ''
             // document.write(count)
             document.body.innerHTML = count++
+            // document.querySelector('div#show').innerHTML = ''
+            // document.querySelector('div#show').innerHTML = count++
+            
         }
 
+        // 永久定时器
         setInterval(doWrite,1000)
 
-
+        function check() {  
+            console.log('点击')
+        }
      </script>
+     <div id="show"></div>
+     <button onclick="check()">测试定时器是否会阻塞程序</button>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关联下拉列表</title>
+</head>
+<body>
+    <!-- <input type="text" value='12345678765432'> -->
+</body>
+<script>
+    //1.创建基本内容结构
+    var title = document.createElement('lable')
+    title.innerText = '请选择省份:'
+    title.style.fontSize = '40px'
+    title.style.fontWeight = 'blod'
+    title.style.color = '#600'
+    document.body.appendChild(title)
+
+    // 省
+    var proSelect = document.createElement('select')
+    proSelect.style.width = '100px'
+    proSelect.style.height = '40px'
+    document.body.appendChild(proSelect)
+
+    // 城市
+    var citySelect = document.createElement('select')
+    document.body.appendChild(citySelect)
+
+    //2. 定义数据
+    var proData = ['河南省','河北省','湖北省']
+    var cityData = []
+    cityData.push(['郑州','大三门峡','大焦作','新密','周口'])
+    cityData.push(['石家庄','邯郸','唐山'])
+    cityData.push(['武汉'])
+
+    //3. 将数据进行绑定
+    //3.1 绑定省数据
+    for(var i=0;i<proData.length;i++){
+        var opt = document.createElement('option')
+        opt.innerText = proData[i]
+        opt.value = i
+        proSelect.appendChild(opt)
+    }
+
+    //4. 城市
+    // 默认城市的名称
+    for(var i=0;i<cityData[0].length;i++){
+        var opt = document.createElement('option')
+        opt.innerText = cityData[0][i]
+        citySelect.appendChild(opt)
+    }
+
+    //5. 处理 用户响应
+    proSelect.onchange = function (event) {  
+        // console.log('onchange')
+        var opts = citySelect.children
+        // console.log(opts)
+        // 5.1 清除原有内容
+
+        // for(var i=0;i<opts.length-2;i++){
+        //     console.log(i,citySelect,opts[i])
+        //     citySelect.removeChild(opts[i])
+        //     console.log(i,citySelect,opts[i])
+        // }
+
+        for(var i=opts.length - 1;i >= 0;i--){
+            console.log(i,citySelect,opts[i])
+            citySelect.removeChild(opts[i])
+            console.log(i,citySelect,opts[i])
+        }
+
+        // 0  3  0  ['郑州','大三门峡','大焦作'] '郑州'
+        // 1  3  1  ['大三门峡','大焦作'] '大焦作'
+
+        // console.log(citySelect)
+
+        // 5.2 找到选择的是第几个省
+        // console.log(event)
+        var proIndex = event.target.value
+
+        for(var i=0;i<cityData[proIndex].length;i++){
+            var opt = document.createElement('option')
+            opt.innerText = cityData[proIndex][i]
+            citySelect.appendChild(opt)
+        }
+    }
+
+</script>
+</html>
