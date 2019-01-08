@@ -7,7 +7,7 @@ class MyClass:
         return MyClass(self.name + others.name,self.age+others.age)
 
     def info(self):
-        print('%s,',self.name,'%d.',self.age)
+        print('%s,%d.' %(self.name,self.age))
 
 
 a = MyClass('Tom',18)
