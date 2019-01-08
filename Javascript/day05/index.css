@@ -29,4 +29,23 @@ html {
     transition: left 0.7s ease-in-out;
 }
 
+/* 左右按钮样式 */
+.arrow {
+    width: 60px;
+    height: 100%;
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    line-height: 400px;
+    position: absolute;
+    top: 0;
+}
 
+.left {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0))
+}
+
+.right {
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0))
+}

@@ -5,18 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>轮播</title>
+    <title>轮播图定时+翻页功能</title>
     <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-    <!-- 
-        轮播图的特征
-        1.无限轮播/无限滚动/无限滑动
-        2.页码跳转
-        3.定时滑动/定时滚动
-     -->
-    <!-- 1.1 实现页面结构内容 -->
     <div id="scroll">
         <img src="./images/1.jpg" alt="abcdefg" title="1234567">
         <img src="./images/2.jpg" alt="">
@@ -24,23 +17,42 @@
         <img src="./images/4.jpg" alt="">
         <img src="./images/1.jpg" alt="abcdefg" title="1234567">
     </div>
-    <div style="background-color: red;height: 50px;">12345</div>
 </body>
-
-</html>
 <script>
-    // 1.2 初始化 轮播图的位置
-    var scroll = document.querySelector('#scroll')
-    // 获取轮播图的宽度
-    var s_w = scroll.clientWidth
-    // 1.3 通过宽度来设置 img 的位置 使用 父相子绝
-    var imgs = scroll.querySelectorAll('img')
-    for (var i = 0; i < imgs.length; i++) {
-        imgs[i].style.left = i * s_w + 'px'
+    var scroll_el = document.querySelector('#scroll')
+    var s_w = scroll_el.clientWidth
+
+    var imgs = scroll_el.querySelectorAll('img')
+    for (var index = 0; index < imgs.length; index++) {
+        imgs[index].style.left = index * s_w + 'px'
     }
 
-    // 2.实现 滑动功能 // 使用定时器来实现滑动
+    //2.1 实现 左右按钮
+    var l_btn = document.createElement('div')
+    l_btn.innerText = "《"
+    l_btn.className = 'arrow left'
+    scroll_el.appendChild(l_btn)
 
+    var r_btn = document.createElement('div')
+    r_btn.innerText = "》"
+    r_btn.className = 'arrow right'
+    r_btn.style.right = '0'
+    scroll_el.appendChild(r_btn)
+
+    // 3.左右事件的实现
+    l_btn.onclick = function () {
+        clearInterval(timer)
+        moveLeft()
+        timer = setInterval(moveLeft, 3000)
+    }
+
+    r_btn.onclick = function () {
+        clearInterval(timer)
+        moveRight()
+        timer = setInterval(moveLeft, 3000)
+    }
+
+    // 4 左右移动事件
     function moveLeft() {
         page++
         if (page > imgs.length - 1) {
@@ -49,20 +61,22 @@
         move()
     }
 
-    function move() {
-
-        // 让所有的 轮播图中的img 依次向前移动一个宽度的单位
-        for (var i = 0; i < imgs.length; i++) {
-            imgs[i].style.left = (i - page) * s_w + 'px'
+    function moveRight() {
+        page--
+        if (page < 1) {
+            page = 0
         }
-        
+        move()
+    }
+    // 5 移动
+    function move() {
+        // 每次移动一个宽度的轮播图
+        for (var index = 0; index < imgs.length; index++) {
+            imgs[index].style.left = (index - page) * s_w + 'px'
+        }
         setTimeout(function () {
-            // 判断是不是最后一张
             if (page == imgs.length - 1) {
                 page = 0
-
-                // 在将所有图片拉回原来的位置时 每一个img 都自带了动画
-                // 所有要先将动画取消
                 for (var j = 0; j < imgs.length; j++) {
                     imgs[j].style.transition = 'none'
                 }
@@ -80,13 +94,11 @@
                     }
                 }, 100)
             }
-
         }, 700)
+
     }
 
-    // 3. 声明一个全局变量用来记录当前的页数
     var page = 0
-
-    setInterval(moveLeft, 1000)
-    // setTimeout(moveLeft, 2000)
+    var timer = setInterval(moveLeft, 3000)
 </script>
+</html>

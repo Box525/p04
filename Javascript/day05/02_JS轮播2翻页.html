@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原生JS轮播翻页功能</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="scroll">
+        <img src="./images/1.jpg" alt="abcdefg" title="1234567">
+        <img src="./images/2.jpg" alt="">
+        <img src="./images/3.jpg" alt="">
+        <img src="./images/4.jpg" alt="">
+        <img src="./images/1.jpg" alt="abcdefg" title="1234567">
+    </div>
+</body>
+<script>
+    //1.1 获取滚动区域的宽度
+    var scroll = document.querySelector('#scroll')
+    var s_w = scroll.clientWidth
+
+    //1.2 排列轮播图的位置
+    var imgs = scroll.querySelectorAll('img')
+    for(var index = 0 ; index < imgs.length ; index++){
+        imgs[index].style.left = index * s_w + 'px'
+    }
+
+    //2.1 实现 左右按钮
+    var l_btn = document.createElement('div')
+    l_btn.innerText = "《"
+    l_btn.className = 'arrow left'
+    scroll.appendChild(l_btn)
+
+    var r_btn = document.createElement('div')
+    r_btn.innerText = "》"
+    r_btn.className = 'arrow right'
+    r_btn.style.right = '0'
+    scroll.appendChild(r_btn)
+
+    // 2.2 实现 左右的响应事件
+    l_btn.onclick = function () {  
+        moveLeft()
+    }
+    r_btn.onclick = function () {  
+        moveRight()
+    }
+
+    // 3.1 实现左移动
+    function moveLeft() {
+        page++
+        if (page > imgs.length-1) {
+            page = imgs.length-1
+        }
+        move()
+    }
+    // 右移动
+    function moveRight() {
+        page--
+        if(page < 1){
+            page = 1
+        }
+        move()
+    }
+    // 3.2 移动
+    function move() {
+        for(var index=0 ; index < imgs.length ; index++){
+            imgs[index].style.left = (index - page + 1)*s_w + 'px'
+        }
+    }
+    
+    // 3.2.1 声明全局变量记录 页码
+    var page = 1
+</script>
+</html>
