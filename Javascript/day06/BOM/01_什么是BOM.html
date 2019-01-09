@@ -4,9 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>BOM</title>
 </head>
 <body>
-    
+     <!--BOM
+    1.什么是BOM？
+    B = Broswer 浏览器
+    O = Object
+    M = Model 模型
+    BOM = 浏览器对象模型
+    作用是提供很多对象，用于访问浏览器的功能
+
+    BOM 缺少标准规范，而且每一个浏览器的厂商（提供商）都按自己的想法
+    扩展BOM对象，使用不是很方便
+
+    2.主要BOM对象：
+    2.1 window 对象
+    2.2 location 对象
+    2.3 history 对象
+
+    3.window对象
+    BOM的核心，它代表着浏览器的一个实例
+    window对象是JS中处于最顶端的，对于每一个打开的窗口，浏览器都会为其定义一个window对象
+
+    -->
 </body>
+<script>
+    // 1.window 常用的属性
+    // location 表示当前窗口的URL对象 记录着当前所访问的文件的属性
+    // 对于一个浏览器来说 访问的文件都是通过URL来实现的
+    window.console.log(window.location)
+    // window.alert('1')
+    var name2 = 'Luck Day'
+    // window.alert(window.name2)
+    // window.alert(this.name2)
+    console.log(this)
+
+    aaaa = 'hello';
+    console.log(window.aaaa)
+    // 面试题
+    var a_name = 'Rose'
+    function sayHi(v1,v2) {
+        a_name = age = 18
+        return v1+v2
+    }
+
+    console.log(window.a_name) //Rose
+    console.log(window.sayHi(2,3)) //5
+    console.log(sayHi(1,2))//3
+    console.log(age)//18
+
+    // screen 屏幕 当前屏幕的相关信息 比如宽和高
+    console.log(window.screen)
+    //2. windwow 方法
+    //2.1 系统对话
+    // alert('1')
+    // confirm('好不好???')
+    // prompt('同不同意？','可以再此处写一个默认值')
+
+    //2.2 新建窗口
+    // open('https://www.baidu.com')
+    // open('https://www.baidu.com','这是我的网站')
+
+    //2.3 获取窗口的尺寸
+    // 注意 IE和现代浏览器是有差别的需要做 适配 使用window就不合适了
+    // IE
+    document.documentElement.clientWidth
+
+    //非IE
+    document.body.clientWidth
+    
+
+
+</script>
+
 </html>
