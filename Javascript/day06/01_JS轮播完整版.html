@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <!-- 原生JS轮播 构建 原理 实现
+    重点罗列 技术要点
+    一、轮播图要素
+        1、无限滑动、无限滚动、（有这么一个显示效果特征）
+        2、翻页功能
+        3、页码跳转
+    二、轮播图主要技术点
+        1、定时器
+        2、原生JS的DOM操作
+        3、CSS 动画
+        4、
+    三、轮播图主要实现流程
+        1、构建轮播图的内容结构 (N+1 解决 最后一张和第一张的衔接)
+        2、使用定位实现轮播图的排列
+        3、使用定时器启动滑动 默认是向左方向
+        4、设置页码进行记录（目的是 标记当前是显示的是第几页）
+        5、对第一页和最后一页进行特殊处理
+    四、轮播图优化总结
+        1、按需加载
+        2、缩略图显示
+        3、对动画进行优化 (动画没有结束就不能点)
+    -->
+
+    <div id="scroll">
+        <img src="./images/1.jpg" alt="">
+        <img src="./images/2.jpg" alt="">
+        <img src="./images/3.jpg" alt="">
+        <img src="./images/4.jpg" alt="">
+        <img src="./images/1.jpg" alt="">
+    </div>
+</body>
+</html>
+<script>
+    var scroll_el = document.querySelector('#scroll')
+    var s_w = scroll_el.clientWidth
+
+    var imgs = document.querySelectorAll('#scroll > img')
+    for(var i = 0; i<imgs.length ; i++){
+        imgs[i].style.left = i*s_w + 'px'
+    }
+
+    var l_btn = document.createElement('div')
+    l_btn.innerText = "《"
+    l_btn.className = 'arrow left'
+    scroll_el.appendChild(l_btn)
+
+    var r_btn = document.createElement('div')
+    r_btn.innerText = "》"
+    r_btn.className = 'arrow right'
+    r_btn.style.right = '0'
+    scroll_el.appendChild(r_btn)
+
+    l_btn.onclick = function () {  
+        moveLeft()
+    }
+
+    r_btn.onclick = function () {
+        moveRight()
+    }
+
+    function moveLeft() {
+        page++
+        if (page == imgs.length - 1) {
+            page = imgs.length - 1
+        }
+        move()
+    }
+
+    function moveRight() {
+        page--
+        if (page < 1) {
+            page = 0
+        }
+        move()
+    }
+
+    var page = 0
+    function move() {
+        for(var i = 0; i<imgs.length; i++){
+            imgs[i].style.left = (i-page)*s_w + 'px'
+        }
+        pages.setPage(page)
+        setTimeout(function () {  
+
+            if(page == imgs.length - 1){
+                page = 0
+
+                for(var j = 0; j<imgs.length ; j++){
+                    imgs[j].style.transition = 'none'
+                }
+
+                for(var j = 0 ; j<imgs.length ; j++){
+                    imgs[j].style.left = j*s_w + 'px'
+                }
+
+                setTimeout(function () {  
+                    for (var j = 0; j < imgs.length; j++) {
+                        imgs[j].style.transition = 'left .7s ease-in-out'
+                    }
+                },100)
+            }
+
+
+        },700)
+    }
+
+    var timer = setInterval(moveLeft,3000)
+
+    // *******************************************
+    // 实现页码
+    // 显示
+    for(var i = 0 ; i < imgs.length - 1 ; i++){
+        var p = document.createElement('div')
+        scroll_el.appendChild(p)
+        p.className = 'pageControl'
+        p.style.top = '80%'
+        p.style.left = (s_w/2)-((imgs.length-1)*10 + (imgs.length - 1 - 1)*10)/2  + i * 20 + 'px'
+        p.index = i
+        p.onclick = function (event) {  
+            //改变 page
+            page = event.target.index
+            // move
+            move()
+            console.log('........',page)
+            clearInterval(timer)
+            timer = setInterval(moveLeft,3000)
+        }
+
+    }
+
+
+    var pages = document.querySelectorAll('.pageControl')
+
+    function displayPage(page_index,pages) {
+        if (page_index == imgs.length - 1) {
+            page_index = 0
+        }
+
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].style.backgroundColor = ''
+        }
+
+        pages[page_index].style.backgroundColor = '#fff'
+    }
+    pages.setPage = function (page_index) {  
+        if (page_index == imgs.length - 1){
+            page_index = 0
+        }
+
+        for(var i = 0; i<this.length ; i++){
+            this[i].style.backgroundColor = ''
+        }
+
+        this[page_index].style.backgroundColor = '#fff'
+    }
+
+    pages.setPage(0)
+
+
+
+
+</script>
