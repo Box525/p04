@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML事件</title>
+</head>
+<body style="height: 1000px;">
+    <div> 指定元素是不是也可以做 scroll 监听</div>
+    <script>
+        // resize 当窗口的大小发生改变的时候触发
+        window.onresize = function () {
+            console.log(this.innerWidth)
+        }
+
+        // scroll 当用户滚动滚动条的元素时触发
+        window.onscroll = function () {
+            console.log('scroll')
+        }
+    </script>
+</body>
+</html>

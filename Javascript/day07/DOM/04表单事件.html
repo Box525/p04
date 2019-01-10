@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单事件</title>
+</head>
+<body>
+    <input type="text" placeholder="用户名">
+    <script>
+        var input_el = document.querySelector('input')
+        // 焦点事件 focus
+        input_el.onfocus = function () {  
+            console.log('获取焦点')
+            this.style.border = ""
+        }
+
+        // 失去焦点
+        input_el.onblur = function () {  
+            console.log('失去焦点')
+            if (this.value != '') { //'' == false
+                console.log(this.value)
+            }else{
+                this.style.border = "1px solid red"
+            }
+        }
+
+        // 获取input 内容发生改变时的触发
+        // onchange 当文本内容发生改变且失去焦点时才会被触发
+        input_el.onchange = function () {  
+            console.log(this.value)
+        }
+
+        input_el.onselect = function () {
+            console.log(this.value)
+        }
+
+        // 如何获取 用户动态输入时候的文字跟踪
+        // 现代浏览器
+        // oninput 是现代浏览器用来监听 input的文本内容发生改变时的触发方法
+        input_el.oninput = function () {
+            console.log(this.value)
+            // 如何做到 本次输入的和上次输入有差别
+        }
+    </script>
+</body>
+</html>

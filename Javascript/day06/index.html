@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>0001</li>
+            <li>0002</li>
+            <li>0003</li>
+            <li>0004</li>
+            <li>0005</li>
+            <li>0006</li>
+            <li>0007</li>
+            <li>0008</li>
+            <li>0009</li>
+            <li>0010</li>
+        </ul>
+    </div>
+
+    <a href="https://www.baidu.com">百度一下</a>
+
+</body>
+<script>
+
+    function main() {
+        var div_els = document.querySelectorAll('div')
+        
+        div_els[0].onclick = function (ev) {  
+            console.log('1',ev.target)
+        }
+
+        var ul_el = div_els[0].querySelector('ul')
+        ul_el.onclick = function (ev) {  
+            console.log('2',ev.target)
+            ev.stopPropagation()
+        }
+
+        var li_el = div_els[0].querySelectorAll('li')
+        for(var i = 0; i<li_el.length; i++){
+            var item = li_el[i]
+            item.index = i
+            item.onclick = function (ev) {  
+                console.log('3',ev.target.index,ev.target.textContent)
+                //阻止事件冒泡~
+                // ev.stopPropagation()
+            }
+        }
+
+        var a_el = document.querySelector('body > a')
+        a_el.onclick = function (ev) {  
+            console.log(this.innerHTML)
+            ev.preventDefault();
+            // return false
+        }
+
+    }
+
+    window.onload = function () {  
+        main()
+    }   
+</script>
+</html>

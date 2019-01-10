@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>on 事件</title>
+</head>
+<body>
+    <!-- DOM中事件基本上是 on + 事件名称 两部分组成 
+    onclick  onload
+    onclick 鼠标的单击事件
+    ondblclick 鼠标的双击事件
+
+    -->
+    <div ondblclick="func()">双击事件</div>
+    <script>
+        function func() {
+            console.log('双击事件')
+        }
+    </script>
+
+    <div id="show" style="width: 100px;height: 100px;background-color: #333; color: #fff">测试按钮事件</div>
+
+    <script>
+        var div = document.querySelector('#show')
+        div.onmousedown = function () {  
+            console.log('鼠标按下')
+        }
+
+        div.onmouseup = function () {  
+            console.log('鼠标弹起')
+        }
+
+        div.onmouseover = function () {  
+            console.log('hover in')
+            console.log('鼠标进入')
+            this.style.backgroundColor = 'red'
+        }
+
+        div.onmouseout = function () {  
+            console.log('hover out')
+            console.log('鼠标移出')
+            this.style.backgroundColor = '#f60'
+        }
+
+        div.onmousemove = function () {  
+            console.log('鼠标移动')
+        }
+    </script>
+
+</body>
+</html>

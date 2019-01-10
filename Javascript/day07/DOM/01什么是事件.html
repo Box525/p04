@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>什么是事件</title>
+
+</head>
+<body>
+    <!-- 1.事件
+    HTML的事件：是用户和浏览器之间产生行为，这个行为称之为事件
+    比如：鼠标单击、双击、滑动、滚动等
+    2. JS的事件 有3种模型
+    1）内联模型
+    2）脚本模型
+    3）DOM2模型
+
+    内联模型
+    1.内联模式支持不支持 多参？
+    2.变参是否支持?
+    -->
+
+    <div onclick="alert('你摸我了，你要负责')">摸我一下看看</div>
+    <div onclick="func()">指定函数</div>
+    <div onclick="func2(this)">指定函数指定参数</div>
+    <div onclick="func3(window.event)">指定函数获取事件</div>
+    <script>
+        function func() {  
+            alert('无参')
+        }
+
+        function func2(that) {
+            console.log(that)
+            that.style.backgroundColor = 'red'
+        }
+
+        function func3(ev) {
+            console.log(ev.target.textContent)
+        }
+    </script>
+    
+    <script>
+        // var show = document.querySelector('#show')
+        // show.style.height = '10px'
+        // show.style.backgroundColor = 'red'
+        window.onload = function () {  
+            console.log('window onload!!!!')
+            var show = document.querySelector('#show')
+            show.style.height = '10px'
+            show.style.backgroundColor = 'red'
+        }
+    </script>
+    <div id="show"></div>
+    <img src="https://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/0823dd54564e9258e600d9499f82d158ccbf4e64.jpg" alt="">
+</body>
+<script>
+    // onload 延迟加载/懒加载
+    // onload 是一个事件，是当文档以及内容(包括引入js\css)加载完成之后才会触发该事件
+    // 一个文档有且只有一个onload事件，如果还有其它 则只会执行最后的onload事件
+
+    window.onload = function () {  
+        console.log('onload 是不是都有作用呢？？？')
+    }
+    console.log('body 刚刚加载完')
+</script>
+</html>
+<script>
+    console.log('HTML 刚刚加载完')
+</script>
