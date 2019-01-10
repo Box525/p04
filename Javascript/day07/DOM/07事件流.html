@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件流</title>
+    <style>
+        html {
+            /* position: absolute; */
+        }
+    </style>
+</head>
+<body>
+    <!-- 事件流
+    事件流就是用来描述从页面接受事件的顺序
+    当几个都具备有事件的元素叠加在一起的时候
+    这种叠加不是节点的叠加，他们之间的关系是平级的，
+    这种关系不受图层的影响（定位）
+    如果是节点之间的事件都会被触发
+    如果不是节点 则只会触发最上层的事件
+
+    事件流包含2种模式 1.捕捉 2.冒泡
+    -->
+    <div id="show"></div>
+    <ul id="menus">
+        <li>001</li>
+        <li>002</li>
+        <li>003</li>
+        <li>004</li>
+    </ul>
+    <script>
+        var uls = document.querySelector('#menus')
+        uls.onclick = function () {
+            console.log('ul click')
+        }
+
+        var lis = uls.querySelectorAll('li')
+        for(var i=0; i<lis.length; i++){
+            var item = lis[i]
+            item.onclick = function (ev) {
+                console.log(this.innerText)
+                //阻止冒泡
+                // ev.stopPropagation()
+                stopPro(ev)
+            }
+        }
+
+        // 冒泡兼容
+        function stopPro(ev) {
+            var e = ev || window.event;
+            (typeof e.stopPropagation != 'function')?e.cancleBubble = true : e.stopPropagation()
+        }
+    </script>
+
+    <a id="baidu" href="https://www.baidu.com">百度一下就知道</a>
+
+    <script>
+        var baidu = document.querySelector('#baidu')
+        baidu.onclick = function (ev) {
+            console.log('测试走不走这个事件?')
+
+            // return false
+            // preventDefault() 去除元素标签自带的方法
+            ev.preventDefault();
+            
+        }
+    </script>
+</body>
+<script>
+
+    window.onclick = function () {
+        console.log('window')
+    }
+
+    document.body.onclick = function () {
+        console.log('Body')
+    }
+
+    var div_el = document.querySelector('#show')
+    div_el.onclick = function () {
+        console.log('div is click')
+    }
+    for(var i = 0 ; i < 10; i++){
+        var btn = document.createElement('button')
+        btn.index = i
+        btn.style.position = 'absolute'
+        btn.style.zIndex = i + 1000
+        btn.style.left = i*10 + 'px'
+        btn.style.top = 0
+        btn.innerText = '第' + i + '个'
+        div_el.appendChild(btn)
+        btn.onclick = function (ev) {
+            console.log(this.innerText)
+        }
+    }
+
+</script>
+</html>
