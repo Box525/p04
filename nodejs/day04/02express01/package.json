@@ -1,0 +1,15 @@
+{
+  "name": "02express01",
+  "version": "2.0.0",
+  "description": "这是一个express web项目",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "box",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
