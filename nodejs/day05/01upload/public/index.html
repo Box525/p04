@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件上传</title>
+</head>
+<body>
+    <!-- <form action="/upload" method="post">
+        <input type="file" name="files">
+        <input type="submit" value="提交文件">
+    </form> -->
+    <input type="file" id="get_file">
+    <button id="upload">POST 上传文件</button>
+
+</body>
+<script>
+    var get_file = document.querySelector('#get_file')
+    var btn = document.querySelector('#upload')
+    btn.onclick = function () {
+        console.log(get_file.files[0])
+        // FormData
+        var formData = new FormData()
+        formData.append('files',get_file.files[0])
+        console.log(formData)
+        // "" '' 和 null、 "" 和 true
+
+        // XMLHttpRequest 类
+        var xhr = null;
+        // 兼容
+        if (window.XMLHttpRequest) {
+            // 现代浏览器 + ie7+
+            xhr = new XMLHttpRequest()
+        }else{
+            // ie5 ie6
+            xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+
+        // 实现一个请求
+        xhr = new XMLHttpRequest()
+        xhr.open('POST','http://127.0.0.1:9000/upload')
+        // xhr.setRequestHeader('content-type', 'multipart/form-data');
+        
+        xhr.onreadystatechange = function () {
+            if (4 == xhr.readyState && 200 == xhr.status) {
+                console.log(xhr.responseText)
+            }
+        }
+
+        xhr.send(formData)
+    }
+</script>
+</html>
