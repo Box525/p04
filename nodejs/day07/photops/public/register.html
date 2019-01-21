@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+    <style>
+        #wrapper {
+            width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+    <div id="wrapper" class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <h1>用户注册</h1>
+            </div>
+            <div class="layui-col-md12">
+                <input id="uname" required type="text" class="layui-input" placeholder="用户名">
+            </div>
+            <div class="layui-col-md12">
+                <input id="upwd" required type="text" class="layui-input" placeholder="用户密码">
+            </div>
+            <div class="layui-col-md12">
+                <input id="unick" required type="text" class="layui-input" placeholder="用户昵称">
+            </div>
+            <div class="layui-col-md12">
+                <button id="register" class="layui-btn layui-btn-danger">注册</button>
+            </div>
+        </div>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data"></form>
+</body>
+<script>
+    window.onload = function () {
+        main()
+    }
+    function main() {
+        var reg = document.getElementById('register')
+        var uname = document.getElementById('uname')
+        var upwd = document.getElementById('upwd')
+        var unickname = document.getElementById('unick')
+        reg.onclick = function () {
+            // 请求服务器
+            // post
+            // 获取上传的数据
+            var u_name = uname.value
+            var u_pwd = upwd.value
+            var u_nn = unickname.value
+
+            // JS来进行验证
+            // 最好的方式是通过正则
+            if (u_name.length > 0 && u_pwd.length > 0 && u_nn.length > 0) {
+                // 发请求
+                var xhr = new XMLHttpRequest()
+                xhr.open("POST","/register")
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(xhr.responseText)
+                    }
+                }
+                var obj = {
+                    uname: u_name,
+                    upwd: u_pwd,
+                    unickname: u_nn
+                }
+
+                // POST 的参数类型有3大类
+                // 1. 以URL的形式 通过设置 key=val&key1=val1&... 进行参数传递
+                // 设置格式传递: application/x-www-form-urlencoded
+                // 2. 以文件格式传递 方式进行设置
+                // 设置格式传递: multipart/form-data
+                // 3. 以JSON格式数据进行数据传递
+                // 设置格式传递: application/json
+
+
+                xhr.setRequestHeader("Content-Type","application/json;charset=UTF-8")
+                xhr.send(JSON.stringify(obj))
+
+            }
+
+        }
+    }
+</script>
+</html>
