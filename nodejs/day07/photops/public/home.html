@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片管理</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div class="layui-header">
+            <h1>图片管理</h1>
+        </div>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <div class="layui-col-xs2">
+                    <div class="layui-row">
+                        <div class="layui-col-xs12">
+                            <button class="layui-btn layui-btn-primary">
+                                ＋
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-row" id="d_list">
+                        <h1>
+                            没有数据，请先添加目录
+                        </h1>
+                    </div>
+                </div>
+                <div class="layui-col-xs10">
+                    <div class="layui-row" id="p_list">
+                        <h1>
+                            没有数据，请先添加图片
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/cookie.js"></script>
+<script>
+    var cookies = document.cookie
+    console.log(cookies)
+    cookies = 'uname=Tom'
+    document.cookie = cookies
+    console.log(document.cookie)
+    document.cookie = 'upasswd=123456'
+    console.log(document.cookie)
+    document.cookie = 'ufirst=true'
+    console.log(document.cookie)
+
+    setCookie('uid','12345678903',1)
+    console.log(document.cookie)
+
+    console.log(getCookie('uid'))
+    
+    deleteCookie('uid')
+
+    /* setTimeout(function () {
+        console.log(getCookie('uid'))
+    },1000) */
+
+    console.log(getCookie('uuname'))
+    // 验证用户的合法性
+    // uuid
+    var uuid = getCookie('uname')
+    // token 号令牌
+    if (uuid) {
+        // 验证用户的合法性
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET','/user'+'?uname='+uuid)
+        xhr.send()
+        // 
+        xhr.onreadystatechange = function () {
+            if (4 == xhr.readyState && 200 == xhr.status) {
+                var obj = JSON.parse(xhr.responseText)
+                if (!obj.err) {
+                    // 用户合法
+                    // 请求用户目录下面的日期目录的列表
+                    // 2种情况
+                    // 1.没有的情况
+                    get_files({uname:uuid})
+                }else{
+                    // 用户不合法
+                }
+            }
+        }
+    }
+
+    function get_files(user) {
+        // 请求用户目录列表
+        var xhr2 = new XMLHttpRequest()
+        xhr2.open('GET','/user/dlist' + '?uname='+ user.uname)
+        xhr2.send()
+        xhr2.onreadystatechange = function () {
+            if (4==xhr2.readyState && 200==xhr2.status) {
+                var obj = JSON.parse(xhr2.responseText)
+                if (!obj.err) {
+                    var dlist = document.getElementById('d_list')
+                    var files = obj.files
+                    if (files.length != 0) {
+                        dlist.innerText = ''
+                        for(var i = 0 ; i < files.length ; i++){
+                            var div = document.createElement('div')
+                            div.innerText = files[i]
+                            div.classList.add('layui-col-xs12')
+                            dlist.appendChild(div)
+                        }
+                        
+                        // 默认刷新 右侧数据
+                        get_plist(user,files[0])
+
+                    }else{
+                        dlist.innerHTML = ''
+                        dlist.innerHTML = '<h1>没有数据，2222请先添加目录</h1>'
+                    }
+                }else{
+
+                }
+
+            }
+        }
+    }
+
+    function get_plist(user,file) {
+        var xhr3 = new XMLHttpRequest()
+        xhr3.open('GET','/user/plist' + '?uname='+ user.uname + '&dname=' + file)
+        xhr3.send()
+        xhr3.onreadystatechange = function () {
+            if (4==xhr3.readyState && 200==xhr3.status) {
+                var obj = JSON.parse(xhr3.responseText)
+                if (!obj.err) {
+                    var plist = document.getElementById('p_list')
+                    var files = obj.files
+                    if (files.length != 0) {
+                        plist.innerText = ''
+                        for(var i = 0 ; i < files.length ; i++){
+                            var div = document.createElement('div')
+                            div.innerText = files[i]
+                            div.classList.add('layui-col-xs12')
+                            plist.appendChild(div)
+                        }
+                        
+                    }else{
+                        plist.innerHTML = ''
+                        plist.innerHTML = '<h1>没有数据，2222请先添加目录</h1>'
+                    }
+                }else{
+
+                }
+
+            }
+        }
+    }
+
+
+
+
+</script>
+</html>

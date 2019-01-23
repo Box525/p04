@@ -8,6 +8,34 @@
     <link rel="stylesheet" href="layui/css/layui.css">
 </head>
 <body>
-    
+    <button class="layui-btn layui-btn-danger layui-btn-lg" onclick="login()">登录</button>
 </body>
+<script src="js/cookie.js"></script>
+<script>
+    window.onload = function () {
+        main()
+    }
+
+    function main() {
+        
+    }
+
+    function login() {
+        // 原生JS 登录
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST','/login')
+        xhr.onreadystatechange = function () {
+            if (4 == xhr.readyState && 200 == xhr.status) {
+                console.log(xhr.responseText)
+                var obj = JSON.parse(xhr.responseText)
+                if (!obj.err) {
+                    // 存储cookie
+                    setCookie('uuname','Tom',100)
+                    window.location.href = 'home.html'
+                }
+            }
+        }
+        xhr.send()
+    }
+</script>
 </html>

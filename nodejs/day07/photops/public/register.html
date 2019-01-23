@@ -61,6 +61,15 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log(xhr.responseText)
+                        var obj = JSON.parse(xhr.responseText)
+                        console.log(obj)
+                        if (!obj.err) {
+                            alert('注册成功，返回主页')
+                            window.location.href = 'index.html'
+                            // window.location.href = 'home.html'
+                        }else{
+                            alert('注册失败')
+                        }
                     }
                 }
                 var obj = {
