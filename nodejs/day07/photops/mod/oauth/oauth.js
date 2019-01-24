@@ -65,8 +65,19 @@ function oauth_add(user,cb) {
 	fop.fwrite('sources/users.json',user,function (err,msg) {
 		if (err) {
 			cb(err,null)
-		}
-		cb(null,msg)
+        }
+        
+        // 创建目录
+        fop.fmkdir('sources/users/' + user.dirname,function (err2,msg2) {
+            if (err2) {
+                cb(true, msg)
+                throw msg2
+            }
+            cb(false,msg)
+
+        })
+
+		// cb(null,msg)
 	})
 }
 

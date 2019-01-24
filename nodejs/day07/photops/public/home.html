@@ -6,11 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>图片管理</title>
     <link rel="stylesheet" href="layui/css/layui.css">
+    <script src="layui/layui.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script> -->
 </head>
 <body>
     <div id="wrapper">
         <div class="layui-header">
-            <h1>图片管理</h1>
+            <div class="layui-row">
+                <div class="layui-col-xs2">
+                    <h1>图片管理</h1>
+                </div>
+                <div class="layui-col-xs2 layui-col-xs-offset8">
+                    <button id="picup" type="button" class="layui-btn">
+                        <i class="layui-icon">&#xe67c;</i>
+                        上传图片
+                    </button>
+                    <button id="send" class="layui-btn">
+                        上传
+                    </button>
+                </div>
+            </div>            
         </div>
         <div class="layui-fluid">
             <div class="layui-row">
@@ -159,4 +174,93 @@
 
 
 </script>
+<script>
+    // var layer = layui.layer
+    // console.log(layer)
+    /* console.log(layui)
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        layer.msg('hello');
+    }); */
+    layui.use('layer', function () {
+        var layer = layui.layer
+        var $ = layui.$
+        var that = layer.open({
+            type: 1,
+            area: ['400px','300px'],
+            title: '添加用户图片目录',
+            maxmin: true,
+            shade:0.5,
+            fixed: false,
+            shadeClose: false,
+            anim:1,
+            content: $('#mymodal'),
+            btn: ['确定','取消'],
+            btnAlign: 'c',
+            yes: function (index,layero) {
+                console.log('确定')
+                var input = document.getElementById('dirname')
+                console.log(input.value)
+                layer.close(index)
+            },
+            btn2: function (index,layero) {
+                console.log('取消')
+            }
+        })
+
+        function close_window() {
+            console.log('close')
+            layer.close(layer.index)
+        }
+
+        document.getElementById('cclose').onclick = (function () {
+            console.log('111111111')
+            layer.close(layer.index)
+        })
+    })
+
+    // 图片上传
+    layui.use('upload',function () {
+        var upload = layui.upload
+        var render = upload.render({
+            elem: "#picup",
+            url: '/user/add/pic',
+            auto: false,
+            bindAction: '#send',
+            field: 'logo',
+            data: {
+                user:{
+                    uname: 'Tom',
+                    upasswd: '123456'
+                }
+            },
+            done: function (res) {
+                console.log(res)
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
+
+</script>
+<!-- 模态声明内容 -->
+<div id="mymodal" style="display:none;position: relative;">
+    <h1>这是layui的模态框</h1>
+    <div class="layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-xs4">
+                目录名称:
+            </div>
+            <div class="layui-col-xs8">
+                <input id="dirname" type="text" placeholder="例如:20180101">
+            </div>
+        </div>
+        <button id="cclose" class="layui-btn layui-btn-danger" style="position: absolute;top:150px;right: 20px;">
+            确定
+        </button>
+    </div>
+</div>
 </html>
+
+

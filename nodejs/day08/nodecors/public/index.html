@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跨域访问</title>
+</head>
+<body>
+    <!-- <form action="http://127.0.0.1:10086/" method="get">
+        <input type="submit" value="访问10086主页">
+    </form> -->
+    <button id="send">访问10086主页</button>
+</body>
+<script>
+    document.getElementById('send').onclick = function () {
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET','http://127.0.0.1:10086/json')
+        xhr.send()
+        xhr.onreadystatechange = function () {
+            if (4==xhr.readyState && 200 == xhr.status) {
+                console.log(xhr.responseText)
+            }
+        }
+    }
+</script>
+</html>

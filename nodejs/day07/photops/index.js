@@ -3,6 +3,9 @@ const BodyParser = require('body-parser')
 const Multer = require('multer')
 const Path = require('path')
 
+// 引入跨域 CORS 包/模块
+const Cors = require('cors')
+
 // 自定义模块
 const oa = require('./mod/oauth/oauth')
 
@@ -16,27 +19,34 @@ app.use(Express.static(Path.join(__dirname,'sources/images')))
 app.use(BodyParser.urlencoded({extended:false}))
 app.use(BodyParser.json())
 
-// 设置存储路径 
-let st = Multer.diskStorage({
-	destination:(req,file,cb)=>{
-		// eslint-disable-next-line no-undef
-		cb(null, Path.join(__dirname,'sources/images'))
-	},
-	filename: (req,file,cb)=>{
-		cb(null,file.originalname)
-	}
-})
-
-let multer = Multer({stroage: st})
+// app.use(Cors())
+// app.use(Cors({
+	// origin: ['http://127.0.0.1:8080'],
+	// methods: ['GET', 'POST'],
+	// alloweHeaders: ['Conten-Type', 'Authorization']
+// }))
 
 app.get('/',(req,res)=>{
 	res.redirect('index.html')
 })
 
+app.get('/json',Cors({
+	origin: ['http://127.0.0.1:8080'],
+	methods: ['GET', 'POST'],
+	alloweHeaders: ['Conten-Type', 'Authorization']
+}),(req,res)=>{
+	res.send(JSON.stringify({
+		err:true,
+		code:'10086'
+	}))
+})
+app.get('/json2', (req, res) => {
+	res.send(JSON.stringify({
+		err: true,
+		code: '10086'
+	}))
+})
 
-function cb(res,data) {
-	res.send(data)
-}
 
 app.get('/favicon.ico',(req,res)=>{
 	res.send('')
@@ -63,7 +73,8 @@ app.post('/register',(req,res)=>{
 			res.send(JSON.stringify(obj))
 		}
 		if (!result) { //
-			// 没有找到这个用户 表示 这是新用户
+            // 没有找到这个用户 表示 这是新用户
+            user['dirname'] = user.uname
 			oa.add(user,function (err,result) {
 				if (err) {
 					let obj = {
@@ -196,5 +207,35 @@ app.get('/user/plist',(req,res)=>{
 
 })
 
+app.post('/user/pic/add',(req,res)=>{
+	res.send('hello')
+})
+
+// 设置存储路径 
+let st = Multer.diskStorage({
+	destination: (req, file, cb) => {
+		console.log(file)
+		cb(null, Path.join(__dirname, 'sources/images/'))
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname)
+	}
+})
+
+let multer = Multer({
+	storage: st
+})
+
+let single2 = multer.single('logo')
+app.post('/user/add/pic',single2,(req,res)=>{
+	console.log(req)
+	res.send(JSON.stringify({
+		code: '',
+		msg: '上传成功',
+		data :{
+			src: req.file.path
+		}
+	}))
+})
 
 app.listen(10086)

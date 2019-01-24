@@ -117,9 +117,40 @@ function r_dir(dp,cb) {
     })
 }
 
+/* 创建用户目录 */
+// dp 用户目录：/sources/users/Tom
+// 图片目录: /sources/users/Tom/创建目录的规则(采用的是时间)
+function f_mkdir(dp,cb) {
+    dp = full_path(dp)
+    // 判断
+    is_file(dp,(res)=>{
+        if (!res) {
+            fs.mkdir(dp, (err) => {
+                if (err) {
+                    cb(true, {
+                        msg: '创建失败',
+                        code: '6001'
+                    })
+                }
+                cb(false,{
+                    msg:'文件创建成功',
+                    code:''
+                })
+            })
+        }else{
+            cb(false,{
+                msg:'文件已存在',
+                code:''
+            })
+        }
+    })
+    
+}
+
 // 开放接口
 module.exports = {
     fread: f_read,
     fwrite: f_write,
-    rfiles: r_dir
+    rfiles: r_dir,
+    fmkdir: f_mkdir
 }
