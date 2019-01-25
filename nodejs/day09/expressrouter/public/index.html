@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RESTful 操作</title>
+    <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.js"></script>
+</head>
+<body>
+    <button class="class1">RESTful GET</button>
+    <button class="class1">RESTful POST</button>
+    <button class="class1">RESTful PUT</button>
+    <button class="class1">RESTful DELETE</button>
+</body>
+<script>
+    // $(document).ready({
+    //     // 这是jQuery 懒加载模式
+    // })
+    // 简化版的懒加载模式
+    $(function () {
+        // 获取按钮
+        $("button.class1").eq(0).click(function () {
+            console.log($(this).html())
+            // GET
+            $.ajax({
+                type: 'GET',
+                url: '/pic',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            })
+
+        })
+        $("button.class1").eq(1).click(function () {
+            console.log($(this).html())
+            $.ajax({
+                type: 'POST',
+                url: '/pic',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            })
+        })
+        $("button.class1").eq(2).click(function () {
+            console.log($(this).html())
+            $.ajax({
+                type: 'PUT',
+                url: '/pic',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            })
+        })
+        $("button.class1").eq(3).click(function () {
+            console.log($(this).html())
+            $.ajax({
+                type: 'DELETE',
+                url: '/pic',
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (xhr) {
+                    console.log(xhr)
+                }
+            })
+        })
+    })
+</script>
+</html>
