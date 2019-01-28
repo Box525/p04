@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue 模板语法</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+</head>
+<body>
+    <!-- 插值 -->
+    <div id="app">
+        <h1>{{ number + 1 }}</h1>
+        <h1>{{ ok? 'YES':'NO' }}</h1>
+    </div>
+    <!-- v 指令
+    什么是指令？
+    是一种特殊的自定义行间属性
+    指令的职责就是当其表达式的值改变时 相应地将某些行为应用到DOM上
+    在Vue中，指令是以 v- 开头
+    -->
+    <!-- v-on 指令 
+    v-on 是绑定事件，可以简写成 @click
+    -->
+    <div id="app2">
+        <div>{{ msg }}</div>
+        <button v-on:click="change">{{ msg }}</button>
+        <button @click="change">{{ msg }}</button>
+    </div>
+
+    <!-- v-model 双向绑定 
+    v-model 用在表单中的指令
+    双向绑定：就是当 页面上绑定的 元素内容发生改变时，vue对象
+    中的dom 监听 会刷新 model中的 对应的数据，当model中的数
+    据发生改变时，则vue对象中的data 绑定就会去属性对应绑定元素
+    内容
+    -->
+    <div id="app3">
+        <input v-model="msg" type="text">
+        <p>{{ msg }}</p>
+    </div>
+
+    <!-- v-for 循环-->
+    <div id="app4">
+        <ul>
+            <li v-for="item in items">
+                <!-- {{ item }} -->
+                {{ item.name }} : {{ item.age }}
+            </li>
+        </ul>
+    </div>
+
+    <!-- v-if v-show
+    v-if 和 v-show
+    都可以用来控制元素的显示和隐藏状态
+    v-if 需要渲染dom，因此切换速度比v-show慢
+    v-show 的dom 需要预先加载，因此初次加载量比v-if大
+    如果是要频繁切换显示状态 用 v-show
+    如果是提高整个页面的加载速度就用v-if
+    -->
+    <div id="app5">
+        <div v-if="ok">True</div>
+        <div v-else>False</div>
+        <div v-show="ok">OK</div>
+        <div @click="change">切换</div>
+    </div>
+
+    <!-- v-bind 属性绑定
+    bind 专门用来绑定html原生属性
+    绑定html 已有的属性 class 、 style 、src 、href
+    可以和普通的属性共存
+    
+    -->
+    <style>
+        .red {
+            background-color: red;
+            color: #fff;
+            font-size: 30px;
+        }
+        .blue {
+            background-color: blue;
+            color: #fff;
+        }
+    </style>
+    <div id="app6">
+        <div class="blue" v-bind:class="{red:isOK}">112233</div>
+        <div :class="{blue:isOK}">aabbcc</div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            number: 10,
+            ok: true
+        }
+    })
+    // v-on
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            msg: '点击',
+            // 通过v-on 的事件声明需要写在 data 属性中
+            // 它也是 VM中被监听的属性
+            change: function () {
+                console.log('v on 事件 就是单击 事件')
+            }
+        }
+    })
+
+    // v-model
+    var app3 = new Vue({
+        el: "#app3",
+        data: {
+            msg: "显示数据"
+        }
+    })
+
+    // v-for
+    var app4 = new Vue({
+        el: "#app4",
+        data: {
+            items: [
+                {name:'tom1',age:181},
+                {name:'tom2',age:182},
+                {name:'tom3',age:183},
+                {name:'tom4',age:184},
+            ]
+        }
+    })
+    
+    // v-if
+    var app5 = new Vue({
+        el:"#app5",
+        data: {
+            ok : false,
+            change: function () {
+                this.app5.ok = !this.app5.ok
+                
+            }
+        }
+    })
+
+    // v-bind
+    var app6 = new Vue({
+        el: "#app6",
+        data: {
+            isOK: false
+        }
+    })
+
+
+
+</script>
+</html>

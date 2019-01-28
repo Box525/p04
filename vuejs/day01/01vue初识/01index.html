@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue 基本使用方式</title>
+    <!-- 
+        vue 的使用方式2种：
+        1.引入式
+        2.vue-cli 脚手架模式
+     -->
+    <script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+</head>
+<body>
+    <div class="show">
+        <!-- {{ }} Vue中的插值 插值的作用是 计算和显示 -->
+        <h1>{{ msg }}</h1>
+        <h1>{{ msg }}</h1>
+    </div>
+    <h1>{{ msg }}</h1>
+    <button onclick="show()">点击改变</button>
+</body>
+<script>
+    var app = new Vue({
+        // el：表示在html 中哪个元素进行绑定，类似节点选择器
+        el: "div.show",
+        // data: 表示页面中需要的数据，以键值对进行匹配
+        data: {
+            msg: "点击次数"
+        }
+    })
+    var count = 1;
+    function show() {
+        count++
+        app.msg += count
+    }
+</script>
+</html>
