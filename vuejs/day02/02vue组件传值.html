@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>组件传值</title>
+		<script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+		<style type="text/css">
+			.red {
+				color: red;
+				font-size: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<my-component msg='hello vue.js 123' abc='abc'></my-component>
+			<my-component msg='hello world' abc='abc123'></my-component>
+			<my-love v-bind:text='msg'></my-love>
+			<input type="text" v-model="input">
+			<my-input :text='input'></my-input>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var myComponent = Vue.extend({
+			template:'<div><h1 class="red">{{ msg }} {{ abc }} </h1></div>',
+			// 如果想进行组件传值,引入到组件内部,就需要通过
+			// porps 属性
+			props:['msg','abc']
+		})
+		
+		var myLove = Vue.extend({
+			template:'<h1>{{ text }}</h1>',
+			props:['text']
+		})
+		
+		var myInput = Vue.extend({
+			template:'<h1>{{ text }}</h1>',
+			props:['text']
+		})
+		
+		Vue.component('my-component',myComponent)
+		Vue.component('my-love',myLove)
+		Vue.component('my-input',myInput)
+		
+		var app = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是要进行组件传值222',
+				input: ''
+			}
+		})
+	</script>
+</html>

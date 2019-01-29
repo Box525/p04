@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 组件传值练习</title>
+		<script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-first @event="cb"></my-first>
+			<my-second :msg="msg"></my-second>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var first = Vue.extend({
+			template:`<div>
+				<input type="text" placeholder="城市" v-model="city">
+				<button @click="send">发送</button>
+				<my-second :msg="city"></my-second>
+				</div>`,
+			props:['event'],
+			data: function(){
+				return {
+					city: '',
+					msg: '北京'
+				}
+			},
+			methods:{
+				send: function(){
+					this.$emit('event',this.city)
+				}
+			}
+		})
+		
+		var second = Vue.extend({
+			template:`<div>
+				<h1>{{ msg }}</h1>
+			</div>`,
+			props:['msg']
+		})
+		
+		Vue.component('my-first',first)
+		Vue.component('my-second',second)
+		
+		var app = new Vue({
+			el:'#app',
+			data: {
+				msg: ''
+			},
+			methods: {
+				cb: function(msg){
+					this.msg = msg
+				}
+			}
+		})
+		
+		
+	</script>
+</html>

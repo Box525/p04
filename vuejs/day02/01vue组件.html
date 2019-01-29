@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue 组件01</title>
+		<script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+	</head>
+	<body>
+		<h1>这是Vue 组件</h1>
+		<h2>这是组件介绍</h2>
+		<!--  
+		Vue 中有2个核心点
+		响应的数据绑定
+		当数据发生改变，自动更新视图
+		利用 Object.definedProperty的setter/getter代理数据，监控对数据的操作
+		组合的视图组件
+		UI页面映射为组件树 （DOM树）
+		组件维护性高、可重用、可测试
+		
+		vue 组件
+		组件是一组可被复用的具有一定功能，独立的完整代码片段，这个代码片段可以渲染
+		一个完整的视图结构，进行组件化开发
+		
+		在vue中使用组件分为3步：
+		1.在页面中使用这个组件（HTML中一个自定义元素标签）
+		2.在JS中定义组件，通过Vue.extend()
+		在 extend方法中 接收一个对象，这个对象就是用来描述一个组件的对象，
+		由于组件是一个完整的个体，所以需要使用具有Vue实例化对象上的属性方法
+		并且自身有一些特殊的属性
+		template 表示组件内部渲染模板字符串
+		props 表示组件传值
+		3.注册组件，Vue.component()
+		
+		-->
+		
+		<div id="app">
+			<!-- 第一步使用自定义元素作为组件 -->
+			<my-component></my-component>
+			<my-component></my-component>
+			<my-component></my-component>
+			<my-component></my-component>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		// 第二步 定义组件
+		var myComponent = Vue.extend({
+			// 使用template 来定义模板
+			template:"<h1>这是一个Vue自定义的组件</h1>",
+		})
+		
+		// 第三步 注册组件
+		Vue.component('my-component', myComponent)
+		
+		var app = new Vue({
+			el: '#app'
+		})
+		
+	</script>
+</html>

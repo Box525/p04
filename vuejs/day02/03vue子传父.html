@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>子组件向父组件传值</title>
+		<script src="https://cdn.bootcss.com/vue/2.5.22/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<my-component @abc="cb"></my-component>
+			<p>{{ msg }}</p>
+		</div>
+		<div id="app2">
+			<my-buttons></my-buttons>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 子组件
+		var myComponent = Vue.extend({
+			template:'<div><input type="text" v-model="inputtext"><button @click="callback">点击触发子组件事件</button></div>',
+			methods:{
+				callback: function(){
+					console.log(this)
+					// 子组件向父组件传递消息需要使用emit
+					this.$emit('abc',this.inputtext)
+					console.log(this.inputtext)
+				}
+			},
+			props:['abc'],
+			data: function(){
+				return {
+					inputtext : ''
+				}
+			}
+		})
+		
+		Vue.component('my-component',myComponent)
+		var app = new Vue({
+			el: '#app',
+			data: {
+				msg: ''
+			},
+			methods: {
+				// 订阅 // 回调
+				cb: function(msg){
+					console.log(msg)
+					this.msg = msg
+				}
+			}
+		})
+	</script>
+	<script type="text/javascript">
+		var buttons = Vue.extend({
+			template:`<div>
+				<button @click="btn">按钮1{{count}}</button>
+				<button @click="btn2">按钮2{{count2}}</button>
+				<p>{{count}} {{count2}}</p>
+			</div>`,
+			data: function(){
+				return {
+					count: 0,
+					count2: 0
+				}
+			},
+// 			data: {
+// 				count: 0,
+// 				count2: 0
+// 			},
+			methods:{
+				btn: function(){
+					this.count++
+				},
+				btn2: function(){
+					this.count2++
+				}
+			}
+		})
+		
+		Vue.component('my-buttons', buttons)
+		var app2 = new Vue({
+			el:"#app2"
+		})
+	</script>
+</html>
