@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {
+        font-family: "Microsoft YaHei";
+    }
+
+    #tab {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    .tab-tit {
+        font-size: 0;
+        width: 600px;
+    }
+
+    .tab-tit a {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+        width: 25%;
+        text-align: center;
+        background: #ccc;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .tab-tit .cur {
+        background: #09f;
+        color: #fff;
+    }
+
+    .tab-con div {
+        border: 1px solid #ccc;
+        height: 400px;
+        padding-top: 20px;
+    }
+</style>
+
+<body>
+    <div id="tab">
+        <div class="tab-tit">
+            <a :class="{cur:currentIndex===0}" @click='click2(0)' href="javascript:void(0);">html</a>
+            <a :class="{cur:currentIndex===1}" @click='currentIndex=1' href="javascript:void(0);">css</a>
+            <a :class="{cur:currentIndex===2}" @click='currentIndex=2' href="javascript:void(0);">javascript</a>
+            <a :class="{cur:currentIndex===3}" @click='currentIndex=3' href="javascript:void(0);">vue</a>
+        </div>
+        <div class="tab-con">
+            <div v-show="currentIndex===0">
+                html
+            </div>
+            <div v-show="currentIndex===1">
+                css
+            </div>
+            <div v-show="currentIndex===2">
+                javascript
+            </div>
+            <div v-show="currentIndex===3">
+                vue
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    window.onload = function () {  
+        new Vue({
+            el : '#tab',//选择器
+            data : {
+                currentIndex : 0
+            },
+            methods : {
+                click2 : function (index) {
+                    this.currentIndex = index;
+                }
+            }
+
+        });
+    }
+</script>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 计算属性</title>
+		<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<label>价格:</label>
+			<input type="text" value="10" v-model="price">
+			<hr />
+			<button type="button" @click="add">＋</button>
+			<input type="text" v-model="number">
+			<button type="button" @click="sub">－</button>
+			<h3>总数:</h3>
+			<p>{{ tp }}</p>
+			<p>{{ fullName2 }}</p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				total_prices: 0,
+				number: 10,
+				price: 10,
+				firstName: 'Jack',
+				lastName: 'Ma'
+			},
+			methods:{
+				add: function(){
+					this.number++
+				},
+				sub: function(){
+					this.number--
+				}
+			},
+			mounted() {
+				console.log(this.total_prices,this.number,this.price)
+				this.total_prices = this.number * this.price
+				console.log(this.total_prices,this.number,this.price)
+			},
+			computed: {
+				// 先声明那个属性是需要被计算的
+				tp: function(){
+					this.total_prices = this.number * this.price
+					return this.total_prices
+				},
+				fullName: function(){
+					return this.firstName + this.lastName
+				},
+				fullName2: {
+					get: function(){
+						return this.firstName + this.lastName
+					},
+					set: function(newName){
+						this.firstName = '今天是1月30日'
+						this.lastName = '离过年还有6天' + newName
+						console.log(this.firstName)
+					}
+				}
+			}
+		})
+	</script>
+</html>

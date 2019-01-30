@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue生命周期</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    window.onload = function () {  
+        var app = new Vue({
+            el : '#app',
+            data : {
+                message : '这是Vue的生命周期'
+            },
+            beforeCreate() {
+                console.group('beforCreate 创建前对象状态======');
+                console.log('%c%s%s','color:red','el:',this.$el);
+                console.log('%c%s%s', 'color:green','data:',this.$data);
+                console.log('%c%s%s', 'color:blue','message:',this.message);
+                console.groupEnd();
+            },
+            created() {
+                console.group('created 创建对象完毕状态======');
+                console.log('%c%s%s', 'color:red', 'el:', this.$el);
+                console.log('%c%s%s', 'color:green', 'data:', this.$data);
+                console.log('%c%s%s', 'color:blue', 'message:', this.message);
+                console.groupEnd();
+            },
+            beforeMount() {
+                console.group('beforeMount 挂载前对象状态======');
+                console.log('%c%s%s', 'color:red', 'el:', this.$el);
+                console.log('%c%s%s', 'color:green', 'data:', this.$data);
+                console.log('%c%s%s', 'color:blue', 'message:', this.message);
+                console.groupEnd();
+            },
+            mounted() {
+                console.group('mounted 挂载完对象状态======');
+                console.log('%c%s%s', 'color:red', 'el:', this.$el);
+                console.log('%c%s%s', 'color:green', 'data:', this.$data);
+                console.log('%c%s%s', 'color:blue', 'message:', this.message);
+                console.groupEnd();
+            },
+            beforeDestroy() {
+                console.group('beforeDestroy 销毁前对象状态======');
+                console.log('%c%s%s', 'color:red', 'el:', this.$el);
+                console.log('%c%s%s', 'color:green', 'data:', this.$data);
+                console.log('%c%s%s', 'color:blue', 'message:', this.message);
+                console.groupEnd();
+            },
+            destroyed() {
+                console.group('destroyed 销毁后对象状态======');
+                console.log('%c%s%s', 'color:red', 'el:', this.$el);
+                console.log('%c%s%s', 'color:green', 'data:', this.$data);
+                console.log('%c%s%s', 'color:blue', 'message:', this.message);
+                console.groupEnd();
+            }
+        });
+        
+    }
+</script>
+</html>

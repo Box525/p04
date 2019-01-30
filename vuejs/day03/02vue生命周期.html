@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue生命周期函数</title>
+	</head>
+	<body>
+		<div id="app">
+			<h1>{{ msg }}</h1>
+		</div>
+		<div id="app2">
+			<h1>{{ msg }}</h1>
+		</div>
+		<!-- <a href="http://www.baidu.com">百度一下就知道</a> -->
+		<button onclick="destory()">destoryed</button>
+	</body>
+	<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是用来测试Vue 生命周期函数的变量，用来检测跟踪什么时候被挂载到视图上的'
+			},
+			methods:{
+				
+			},
+			beforeCreate: function(){
+				console.group('=======Vue对象准备被创建 beforeCreate========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				console.groupEnd()
+			},
+			created: function(){
+				console.group('=======Vue对象已创建 Created========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				console.groupEnd()
+			},
+			beforeMount() {
+				console.log('=======Vue对象准备挂载 beforeMount========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+			},
+			mounted() {
+				console.log('=======Vue对象挂载完毕 Mounted========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+			},
+			beforeUpdate() {
+				console.log('=======Vue对象准备更新 beforeupdate========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				
+			},
+			updated() {
+				console.log('=======Vue对象跟新完毕 updated========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				
+			},
+			beforeDestroy() {
+				console.log('=======Vue对象准备销毁 beforeDestroy========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				alert('destoryed!!!')
+			},
+			destroyed() {
+				console.log('=======Vue对象已销毁 destroyed========')
+				console.log('%c%s%s','color:red','el:',this.$el)
+				console.log('%c%s%s','color:green','data:',this.$data)
+				console.log('%c%s%s','color:yellow','msg:',this.msg)
+				alert('destoryed!!!')
+			}
+			
+		})
+		
+		function destory(){
+			console.log('destory')
+			console.log(app)
+			app = new Vue({
+				el: '#app2'
+			})
+		}
+		
+		
+	</script>
+</html>

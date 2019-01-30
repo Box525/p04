@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+    .left {
+        display: block;
+        float: left;
+        width: 80px;
+        height: 100px;
+    }
+
+    .right {
+        display: block;
+        margin-left: 90px;
+        height: 100px;
+    }
+
+    .number {
+        width: 40px;
+    }
+</style>
+
+<body class="container">
+    <p>购物清单</p>
+    <div id="app">
+        <table class="table">
+            <tr>
+                <td>
+                    <span v-if='isSelectedAll==false' @click='selectAll'>
+                        <img src="./images/no.png">全选</span>
+                    <span v-else='isSelectedAll==true' @click='selectNone'>
+                        <img src="./images/yes.png">全选</span>
+                </td>
+                <td>商品</td>
+                <td>数量</td>
+                <td>单价(元)</td>
+                <td>金额(元)</td>
+                <td>操作</td>
+            </tr>
+            <tr v-for='goods,index in goodsList' v-show='goodsList.length'>
+                <td>
+                    <span v-if='goods.selected==false' @click='goods.selected = !goods.selected'>
+                        <img src="./images/no.png">
+                    </span>
+                    <span v-else='goods.selected==true' @click='goods.selected = !goods.selected'>
+                        <img src="./images/yes.png">
+                    </span>
+                </td>
+                <td>
+                    <div class="left">
+                        <img :src="goods.imgUrl" style="width: 100;height: 100%;">
+                    </div>
+                    <div class="right">
+                        <h5>{{goods.name}}</h5>
+                        <p>品牌：{{goods.brand}}  产地:{{goods.location}}</p>
+                        <p>规格/纯度:{{goods.size}}  起定量:{{goods.number}}</p>
+                        <p>配送仓储:{{goods.send}}</p>
+                    </div>
+                </td>
+                <td>
+                    <a class="btn" @click='reduceGoodsNumber(index)'>-</a>
+                    <input type="text" class="number" style="text-align: center;" v-model="goods.num"/>
+                    <a class="btn" @click='goods.num++'>+</a>
+                </td>
+                <td>{{goods.price}}</td>
+                <td>{{goods.price*goods.num}}</td>
+                <td>
+                    <a class="btn btn-danger" @click='deleteOne(index)'>删除</a>
+                </td>
+            </tr>
+        </table>
+        <p style="float: left;">
+            <a class="btn" @click='deleteSelected'>删除选中商品</a>
+        </p>
+        <p style="float: right;">您挑选了{{getTotal.totalNum}}个商品，共计{{getTotal.totalPrice}}元</p>
+    </div>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var goodsList = [
+            {
+                name: '可乐',
+                brand: '可口可乐公司',
+                location: '海外',
+                size: '300ml',
+                number: 10,
+                send: '海外仓库',
+                price: 3,
+                num: 2,
+                imgUrl:'./images/kele.jpg'
+            },
+            {
+                name: '雪碧',
+                brand: '可口可乐公司',
+                location: '海外',
+                size: '270ml',
+                number: 10,
+                send: '海外仓库',
+                price: 3,
+                num: 1,
+                imgUrl: './images/xuebi.jpg'
+            },
+            {
+                name: '芬达',
+                brand: '可口可乐公司',
+                location: '海外',
+                size: '300ml',
+                number: 20,
+                send: '海外仓库',
+                price: 4,
+                num: 4,
+                imgUrl: './images/fenda.jpg'
+            },
+            {
+                name: '美年达',
+                brand: '可口可乐公司',
+                location: '海外',
+                size: '300ml',
+                number: 16,
+                send: '海外仓库',
+                price: 2,
+                num: 3,
+                imgUrl: './images/meinianda.png'
+            },
+        ];
+    window.onload = function () {  
+        new Vue({
+            el : '#app',
+            data : {
+                goodsList,
+                selected : false
+            },
+            methods : {
+                selectAll : function () {  
+                    for(var index=0;index<this.goodsList.length;index++){
+                        this.goodsList[index].selected = true;
+                    }
+                    this.selected = !this.selected;
+                },
+                selectNone : function () {  
+                    for (var index = 0; index < this.goodsList.length; index++) {
+                        this.goodsList[index].selected = false;
+                    }
+                    this.selected = !this.selected;
+                },
+                deleteOne(index){
+                    this.goodsList.splice(index,1);
+                },
+                reduceGoodsNumber(index){
+                    var goods = this.goodsList[index];
+                    if(goods.num > 0){
+                        goods.num--;
+                    }
+                },
+                deleteSelected(){
+                    this.goodsList = this.goodsList.filter(function (goods) {  
+                        return !goods.selected;
+                    });
+                }
+            },
+            mounted() {
+                console.log('mounted');
+                
+                var _this = this;
+                this.goodsList.map(function (goods) {
+                    _this.$set(goods,'selected',false);
+                });
+                
+                
+            },
+            computed : {
+                isSelectedAll : function () {
+                    if (this.goodsList.length == 0) {
+                        return false;
+                    }
+                    return this.goodsList.every(function (item) {  
+                        return item.selected;
+                    });
+                },
+                getTotal : function () {  
+                    var _goods = this.goodsList.filter(function (goods) {  
+                        return goods.selected;
+                    });
+                    var _totalPrice = 0;
+                    for(var index = 0;index< _goods.length;index++){
+                        _totalPrice += _goods[index].num * _goods[index].price;
+                    }
+
+                    return {totalNum : _goods.length,totalPrice : _totalPrice};
+                }
+            }
+        });
+    }
+
+
+
+</script>
+</html>
+<script>
+    var a = [2, 2, 2];
+    var b = a.every(function (value, key, arry) {
+        console.log(value);   // 结果依次为1，2
+        console.log(key);     // 结果依次为0，1
+        console.log(arry);    // 两次次结果都为[1,2,3]
+        return value === 2;
+    })
+    console.log(a);         // 结果为[ 1, 2, 3 ]
+    console.log(b);     
+</script>
