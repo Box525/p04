@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 路由</title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 路由导航 -->
+			<div id="nav">
+				<router-link to="/home">首页</router-link>
+				<router-link to="/about">关于</router-link>
+			</div>
+			<!-- 路由对应的内容 -->
+			<div id="show">
+				<router-view></router-view>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>
+	<script type="text/javascript">
+		// 简单的理解路由
+		/* 
+		 将浏览器地址栏的url信息进行有规律的解析并渲染对应的视图！
+		 vue中的路由跳转主要是针对 SPA 单页面应用
+		 */
+		// 1.声明 模板
+		var home = {
+			template: `<div>
+			 <h1>主页</h1>
+			</div>`
+		}
+		var about = {
+			template: `<div>
+			 <h1>关于</h1>
+			</div>`
+		}
+		
+		//2. 注册路由
+		var router = new VueRouter({
+			routes: [
+				//{path: '/', component: home},
+				//重定向
+				{path: '/', redirect: '/home'},
+				{path: '/home', component: home},
+				{path: '/about', component: about}
+			]
+		})
+		var app = new Vue({
+			el:'#app',
+			data:{
+				
+			},
+			//3. 使用路由
+			router:router
+		})
+	</script>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<link rel="stylesheet" type="text/css" href="app.css" />
+	</head>
+	<body>
+		<div class="page-shopping-cart" id="shopping-cart">
+			<h4 class="cart-title">购物清单</h4>
+			<div class="cart-product-title clearfix">
+				<div class="td-check fl">
+					<span @click="all()" class="check-span fl" :class="{'check-true':isAllSelected}"></span>全选</div>
+				<div class="td-product fl">商品</div>
+				<div class="td-num fl">数量</div>
+				<div class="td-price fl">单价(元)</div>
+				<div class="td-total fl">金额(元)</div>
+				<div class="td-do fl">操作</div>
+			</div>
+			<div class="cart-product clearfix">
+				<table>
+					<tbody>
+						<tr v-for="(item,index) in goods">
+							<td class="td-check">
+								<span @click="item.selected=!item.selected" class="check-span" :class="{'check-true':item.selected}"></span>
+							</td>
+							<td class="td-product">
+								<img width="98" height="98" :src="item.imgUrl">
+								<div class="product-info">
+									<h6>{{ item.name }}</h6>
+									<p>品牌：{{ item.brand }};产地：{{ item.location }}</p>
+									<p>规格/纯度:{{ item.size }};库存量：{{ item.number }}</p>
+									<p>配送仓储：{{ item.send }}</p>
+								</div>
+								<div class="clearfix"></div>
+							</td>
+							<td class="td-num">
+								<div class="product-num">
+									<a @click="add(index)" href="javascript:;" class="num-reduce num-do fl">
+										<span>+</span>
+									</a>
+									<input type="text" class="num-input" v-model="item.num">
+									<a @click="sub(index)" href="javascript:;" class="num-add num-do fr">
+										<span>-</span>
+									</a>
+								</div>
+							</td>
+							<td class="td-price">
+								<p class="red-text">￥
+									<span class="price-text">{{ item.price.toFixed(2) }}</span>
+								</p>
+							</td>
+							<td class="td-total">
+								<p class="red-text">￥
+									<span class="total-text">{{ (item.price * item.num).toFixed(2) }}</span></p>
+							</td>
+							<td class="td-do">
+								<a href="javascript:;" class="product-delect">删除</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="cart-product-info">
+				<a class="delect-product" href="javascript:;">
+					<span></span>删除所选商品</a>
+				<a class="keep-shopping" href="#">
+					<span></span>继续购物</a>
+				<a class="btn-buy fr" href="javascript:;">去结算</a>
+				<p class="fr product-total">￥
+					<span>{{ getTotal.total_price.toFixed(2) }}</span>
+				</p>
+				<p class="fr check-num">
+					<span>{{ getTotal.total_num }}</span>件商品总计（不含运费）：</p>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/vue/2.6.3/vue.js"></script>
+	<script type="text/javascript">
+		var goodsList = [{
+				name: '可乐',
+				brand: '可口可乐公司',
+				location: '海外',
+				size: '300ml',
+				number: 10,
+				send: '海外仓库',
+				price: 3.05,
+				num: 2,
+				imgUrl: './images/kele.jpg'
+			},
+			{
+				name: '雪碧',
+				brand: '可口可乐公司',
+				location: '海外',
+				size: '270ml',
+				number: 10,
+				send: '海外仓库',
+				price: 3.50,
+				num: 1,
+				imgUrl: './images/xuebi.jpg'
+			},
+			{
+				name: '芬达',
+				brand: '可口可乐公司',
+				location: '海外',
+				size: '300ml',
+				number: 20,
+				send: '海外仓库',
+				price: 4.99,
+				num: 4,
+				imgUrl: './images/fenda.jpg'
+			},
+			{
+				name: '美年达',
+				brand: '可口可乐公司',
+				location: '海外',
+				size: '300ml',
+				number: 16,
+				send: '海外仓库',
+				price: 3.99,
+				num: 3,
+				imgUrl: './images/meinianda.png'
+			},
+		];
+
+		var app = new Vue({
+			el: '#shopping-cart',
+			data: {
+				isAllSelected: false,
+				goods:goodsList
+			},
+			methods:{
+				add(index){
+					if(this.goods[index].number > this.goods[index].num){
+						this.goods[index].num++
+					}
+				},
+				sub(index){
+					if(this.goods[index].num > 0){
+						this.goods[index].num--
+					}
+				},
+				all(){
+					this.isAllSelected = !this.isAllSelected
+// 					this.goods.forEach(function(item){
+// 						item.selected = this.isAllSelected
+// 					})
+					for(var i=0; i < this.goods.length; i++){
+						this.goods[i].selected = this.isAllSelected
+					}
+				}
+			},
+			mounted() {
+				var _this = this;
+				this.goods.map(goods=>{
+					_this.$set(goods,'selected',false)
+				})
+			},
+			computed:{
+				getTotal(){
+					// 原生方式
+					selectGoods = []
+					for(let i=0;i<this.goods.length;i++){
+						if(this.goods[i].selected == true){
+							selectGoods.push(this.goods[i])
+						}
+					}
+					//计算总价
+					var total_price = 0
+					for(let i=0;i<selectGoods.length;i++){
+						total_price += selectGoods[i].num * selectGoods[i].price
+					}
+					return {total_num:selectGoods.length,total_price:total_price}
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 复习</title>
+		<style type="text/css">
+			html {
+				/* 抗锯齿 */
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			.yellow {
+				background-color: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<h1>插值:</h1>
+			<p>{{ msg }}</p>
+			<h2>v指令</h2>
+			<h3>v-on</h3>
+			<button type="button" v-on:click="send()">v-on绑定按钮事件</button>
+			<h2>v-model</h2>
+			<input type="text" v-model="msg"/>
+			<h2>v-bind</h2>
+			<p v-bind:class="{yellow:show==1?true:false}">黄色</p>
+			<h2>v-if</h2>
+			<span v-if="true">☺</span>
+			<span v-if="show==1?true:false">☺</span>
+			<span v-else>☹</span>
+			<h2>v-for</h2>
+			<ul>
+				<li v-for="(item,index) in array">{{item}}</li>
+			</ul>
+
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/vue/2.6.3/vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是通过插值的方式进行数据的双向绑定的数据',
+				show: 2,
+				array: []
+			},
+			methods:{
+				// send: function(){ }
+				send(){
+					console.log('事件响应 send')
+					console.log(this.$data.msg)
+					console.log(this.msg)
+					console.log(this.$el)
+					this.array.push(this.msg)
+				}
+			}
+		})
+	</script>
+</html>
