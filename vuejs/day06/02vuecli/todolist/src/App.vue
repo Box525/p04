@@ -31,6 +31,7 @@ export default {
 		},
 		handleDel(index){
 			console.log('app:',index)
+			this.lists.splice(index,1)
 		}
 	}
 }

@@ -2,7 +2,7 @@
 	<div class="hello">
 		<h1>TodoList 组件</h1>
 		<ul>
-			<todo-item v-for="(item,index) in lists" :content="item" @cb="dd"></todo-item>
+			<todo-item v-for="(item,index) in lists" :key="index" :content="item" :index="index" @cb="dd"></todo-item>
 		</ul>
 	</div>
 </template>
