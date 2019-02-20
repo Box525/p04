@@ -1,0 +1,5 @@
+{
+	"error":false,
+	"msg": "登录成功",
+	"home_url": "http:\/\/localhost:8080\/static\/json\/moves.json"
+}
