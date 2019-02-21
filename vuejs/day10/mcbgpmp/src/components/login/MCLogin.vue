@@ -5,6 +5,7 @@
     </el-main>
     <el-aside width="300px">
       <h1>侧边栏</h1>
+      <i class="iconfont">&#xe60a;</i>
     </el-aside>
   </el-container>
 </template>
