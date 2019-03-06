@@ -40,6 +40,7 @@ def queryFind(tableName='',cols='*',where=''):
         try:
             if where:
                 sql = "select %s from %s where %s;" % (cols,tableName,where)
+                print(sql)
             else:
                 sql = "select %s from %s;" % (cols,tableName) 
             cursor.execute(sql)
@@ -69,7 +70,23 @@ def queryInsert(tableName="",**kargs):
         return None
 
     # 先把 column 列 和 值 要组织
+    cclos = ','.join(str(i) for i in list(kargs.keys()))
+    # uid=12345 and upass=12344
+    totle_string = ''
+    for i in range(len(list(kargs.keys()))):
+        keys = list(kargs.keys())
+        values = list(kargs.values())
+        temp = keys[i] + '=' + values[i]
+        totle_string += (temp + ' and ')
 
+    rows = queryFind(tableName='susers',cols=cclos,where=totle_string[0:-5])
+    if rows:
+        print(rows)
+    else:
+        print('not find')
+
+
+    return None
     # 先查
 
     # 么有匹配到就插入新值
@@ -114,13 +131,7 @@ if __name__ == '__main__':
     '''
     rows = queryFind(tableName='susers')
     if rows:
-        print(rows)
-    else:
-        print('not find')
-    rows = queryFind(tableName='susers',cols='id,uid')
-    if rows:
-        print(rows)
-    else:
+        pri
         print('not find')
     rows = queryFind(tableName='susers',cols='id,uid',where='id=2')
     if rows:
@@ -128,5 +139,10 @@ if __name__ == '__main__':
     else:
         print('not find')
     '''
-    data = {'id':'1','name':'tom','age':18,'sex':'M'}
-    queryInsert(**data)
+    data = {'uid':'10987654328','upass':'12345678','urt':'201903061717'}
+    queryInsert(tableName='susers',**data)
+    # rows = queryFind(tableName='susers',cols='id,uid')
+    # if rows:
+    #     print(rows)
+    # else:
+    #     print('not find')
