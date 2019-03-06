@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JinJia2 模板{{ title }}</title>
+</head>
+<body>
+    <h1>JinJia2 模板语法</h1>
+    <h2>{{ title }}</h2>
+    {% if show == 1 %}
+    <div style="height: 100px;background-color: red;"></div>
+    {% elif show == 2 %}
+    <div style="height: 100px;background-color: green;"></div>
+    {% else %}
+    <div style="height: 100px;background-color: yellow;"></div>
+    {% endif %}
+    {# 这才是真正jinjia2的注释 #}
+    <h2>for</h2>
+    <ul>
+        {% for item in user %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+<script>
+export default {
+    
+}
+setInterval(() => {
+    
+}, interval);
+</script>

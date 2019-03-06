@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    {% include 'head.html' %}
+    <h1>{{ title }}</h1>
+    <a class="title" href="{{ url_for('login') }}?token={{ title }}&name=123456">登录</a>
+    <a href="{{ url_for('login',token=title,name=123456) }}">注册</a>
+    <h3>{{ "hello world"|reverse|capitalize|trim|upper }}</h3>
+    <a href="{{ url_for('setcookie') }}">设置cookie</a>
+</body>
+</html>

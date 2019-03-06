@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{#
+{% block header %}
+    <h1>这是页头</h1>
+{% endblock header %}
+#}
+
+{% if head %}
+    {% block header %}
+        <h1>这是页头2222222</h1>
+    {% endblock header %}
+{% endif %}
+
+{% block footer %}
+    <h1>这是页脚</h1>
+{% endblock footer %}
+
+{% block main %}
+    <h1>这是页的主要内容</h1>
+    <form action="" method="get">
+        
+    </form>
+    {% block about %}
+
+    {% endblock about %}
+{% endblock main %}
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ msg.title }}</title>
+</head>
+<body>
+    {% if msg.error %}
+        <h1 style="color: red;">{{ msg.error }}</h1>
+    {% else %}
+        <h1 style="color: green;">创建成功,返回主界面进行数据添加</h1>
+    {% endif %}
+    <a href="{{ url_for('ctable') }}">返回上一步</a>
+    <a href="/">返回主页</a>
+</body>
+</html>

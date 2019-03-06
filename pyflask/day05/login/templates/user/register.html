@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+    <style>
+        #show_msg {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>注册</h1>
+    <form action="{{ url_for('entry') }}" method="post">
+        <label for="uid">用户名</label>
+        <input type="text" placeholder="手机号/邮箱" name="uid" value="{{ default }}">
+        <br />
+        <label for="upass">用户密码</label>
+        <input id="default" type="password" placeholder="6~18" name="upass">
+        <br />
+        <label for="upass2">再输一次</label>
+        <input id="again" oninput="onInput()" type="password" placeholder="6~18" name="upass2">
+        <span id="show_msg"></span>
+        <input id="login_in" type="submit" value="注册" disabled>
+
+    </form>
+</body>
+<script>
+    function onInput() {
+        console.log(document.querySelector('#again').value)
+        var get_again_el = document.querySelector('#again')
+        var get_default_el = document.querySelector('#default')
+        if (get_default_el.value.length != get_again_el.value.length) {
+            return
+        } else {
+            if (get_default_el.value === get_again_el.value) {
+                var show_msg = document.querySelector('#show_msg')
+                show_msg.style.display = 'block'
+                show_msg.innerText = '密码通过'
+                show_msg.style.border = '1px solid green'
+                show_msg.style.height = '30px'
+                document.querySelector('input[type=submit]').disabled=false
+            } else {
+                var show_msg = document.querySelector('#show_msg')
+                show_msg.style.display = 'block'
+                show_msg.innerText = '密码不通过'
+                show_msg.style.border = '1px solid red'
+                show_msg.style.height = '30px'
+                document.querySelector('input[type=submit]').disabled=true
+            }
+        }
+
+    }
+    window.onload = function () {
+        
+    }
+</script>
+</html>
