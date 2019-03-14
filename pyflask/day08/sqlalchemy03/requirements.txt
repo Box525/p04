@@ -1,0 +1,5 @@
+flask
+pymysql
+flask-sqlalchemy
+flask-script
+flask-migrate
