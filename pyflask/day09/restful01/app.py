@@ -15,14 +15,21 @@ api = Api(app)
 
 # 2. 处理参数（可选）
 parser = reqparse.RequestParser()
+parser.add_argument('name')
+parser.add_argument('age')
+parser.add_argument('birth_time')
 
 
 # 3. 实现资源对象
 class User(Resource):
     def get(self):
         # return json.dumps({'msg':'这是RESTful 的方式'},ensure_ascii=False)
-        return {'msg':'这是RESTful 的方式'}
+        args = parser.parse_args()
+        print('get:',args)
+        return {'msg':'这是RESTful 的方式 get'}
     def post(self):
+        args = parser.parse_args()
+        print('post:',args)
         return {'msg':'post'}
 # 4.设置路由
 api.add_resource(User,'/user')
