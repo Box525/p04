@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='layui/css/layui.css') }}">
+</head>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">layui 后台布局</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="{{ url_for('user.index') }}">退了</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink="all">
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;">所有商品</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="#">列表一</a></dd>
+                            <dd><a href="javascript:;">列表二</a></dd>
+                            <dd><a href="javascript:;">列表三</a></dd>
+                            <dd><a href="{{ url_for('main.add_grade') }}">添加班级</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">用户管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{ url_for('user.user_info') }}">用户列表</a></dd>
+                            <dd><a href="javascript:;">管理员列表</a></dd>
+                            <dd><a href="{{ url_for('main.role_info') }}">权限管理</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="">云市场</a></li>
+                    <li class="layui-nav-item"><a href="">发布商品</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <!-- <div style="padding: 15px;">内容主体区域</div> -->
+            {% if grade %}
+            <a class="layui-btn layui-btn-lg">删除</a>
+            <a class="layui-btn layui-btn-lg">添加</a>
+            <table class="layui-table">
+
+            </table>
+            {% endif %}
+
+            {% if gradeInfo %}
+            <a class="layui-btn layui-btn-lg">删除</a>
+            <a class="layui-btn layui-btn-lg">添加</a>
+            <table class="layui-table">
+                <thead>
+                    <th>id</th>
+                    <th>班级编号</th>
+                    <th>班级名称</th>
+                    <th>班主任</th>
+                </thead>
+            </table>
+            {% endif %}
+
+            {% if addGrade %}
+            <form class="layui-form" action="{{ url_for('main.save_grade') }}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="gname" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="gno" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                </div>
+                <div class="layui-form-item">
+                    {# <label class="layui-form-label">班主任</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="gleader" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                            class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div> #}
+
+                    <label class="layui-form-label">选择班主任</label>
+                    <div class="layui-input-inline">
+                        <select name="gleader" lay-verify="required" lay-search="">
+                            <option value="">直接选择或搜索选择</option>
+                            {% for item in gleaders%}
+                            <option value="{{ item.id }}">{{ item.lname }}</option>
+                            {% endfor %}
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+
+            {% if userinfo %}
+            <form class="layui-form" action="{{ url_for('user.add_user') }}" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="lname" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="lphone" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                            class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="lemail" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                            class="layui-input">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">请填写6到12位密码</div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="lsex" value="男" title="男" checked="">
+                        <input type="radio" name="lsex" value="女" title="女">
+                        <input type="radio" name="lsex" value="禁" title="禁用" disabled="">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="demo2">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+
+            {% if roleInfo %}
+            <from class="layui-form" action="{{ url_for('main.add_role') }}" method="POST">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限类型</label>
+                    <div class="layui-input-inline">
+                        <select name="rolename" lay-verify="required" lay-search="" lay-filter="rolevalue">
+                            <option value="">直接选择或搜索选择</option>
+                            {% for item in roles%}
+                            <option value="{{ item.id }}">{{ item.rname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div id="show">
+
+                    </div>
+                </div>
+            </from>
+            {% endif %}
+
+
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="{{ url_for('static', filename='layui/layui.js') }}"></script>
+    <script>
+        function req_xhr(data) {
+            var xhr = new XMLHttpRequest()
+            var url_str = 'http://127.0.0.1:5000/api/v1/limits?rid=' + data.value
+            // console.log(url_str)
+            xhr.open('get', url_str)
+            xhr.send()
+            xhr.onreadystatechange = function () {
+                if (4 == xhr.readyState && 200 == xhr.status) {
+
+                    var show = document.querySelector('#show')
+                    // 清空
+                    show.innerHTML = ''
+                    var ul = document.createElement('ul')
+                    var ls = JSON.parse(xhr.responseText)
+                    for (let i = 0; i < ls.data.length; i++) {
+                        let item = ls.data[i]
+                        let li = document.createElement('li')
+                        let span = document.createElement('span')
+                        span.innerText = item.lid + ':'
+                        let span2 = document.createElement('span')
+                        span2.innerText = item.lname
+                        li.appendChild(span)
+                        li.appendChild(span2)
+                        ul.appendChild(li)
+                    }
+                    show.appendChild(ul)
+                    form.render('select')
+                }
+            }
+        }
+
+        function req_ajax(data){
+            $.ajax({
+                type:'get',
+                url: '/api/v1/limits',
+                data: {rid:data.value},
+                dataType: 'json',
+                success: function (data) {
+                    // console.log(data)
+                    var show = $('#show')
+                    // var ul = $('#show > ul')
+                    // if (ul) {
+                    //     ul.remove()
+                    // }
+                    // 清空
+                    show.html('')
+                    var ul = $('<ul></ul>')
+                    for(let i = 0; i < data.data.length; i++){
+                        let item = data.data[i]
+                        let li = $('<li></li>')
+                        let s1 = $('<span></span>')
+                        s1.text(item.lid)
+                        let s2 = $('<span></span>')
+                        s2.text(item.lname)
+                        li.append(s1)
+                        li.append(s2)
+                        ul.append(li)
+                    }
+                    show.append(ul)
+                    form.render('select')
+                },
+                error: function (jxhr) {
+                    console.log(jxhr)
+                }
+            })
+        }
+
+        //JavaScript代码区域
+        layui.use(['element', 'form'], function () {
+            var element = layui.element,
+                form = layui.form;
+
+            form.on('select(rolevalue)', function (data) {
+                // console.log(data)
+                req_ajax(data)
+
+            })
+
+        });
+    </script>
+</body>
+
+</html>

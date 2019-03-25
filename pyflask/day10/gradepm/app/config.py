@@ -7,7 +7,7 @@ USERNAME = 'root'
 PASSWORD = '123456'
 HOST = '127.0.0.1'
 PORT = '3306'
-DATABASE = 'py310db'
+DATABASE = 'py311db'
 
 # 固定写法
 # 数据库链接的配置，此项必须，格式为（数据库+驱动://用户名:密码@数据库主机地址:端口/数据库名称）

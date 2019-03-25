@@ -5,3 +5,4 @@ flask-migrate
 flask-restful
 flask-blueprint
 pymysql
+itsdangerous
