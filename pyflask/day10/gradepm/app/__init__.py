@@ -25,7 +25,7 @@ def register_mysql_with_app(app):
 def create_app():
     #创建app对象
     app = Flask(__name__)
-    app.debug = True
+    # app.debug = True
     app.config.from_object(config)
     #配置 session
     # app.config['SECRETKEY']
