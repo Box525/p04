@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+</head>
+<body>
+    <form action="/blog/check_pw/" method="post">
+        {% csrf_token %}
+        用户名: <input type="text" name="uname">
+        <br />
+        密码: <input type="text" name="upwd">
+        <br />
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>
