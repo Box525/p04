@@ -6,5 +6,16 @@
 </head>
 <body>
     <h1 style="color:red;font-size: 30px;">博客首页</h1>
+    <h2>用户是:{{ info.u_name }}</h2>
+    <hr />
+    <h2>添加作者</h2>
+    <form action="/blog/add_auther/" method="post">
+        {% csrf_token %}
+        作者名: <input type="text" name="uname">
+        <br />
+        性别: <input type="text" name="usex">
+        <br />
+        <input type="submit" value="添加">
+    </form>
 </body>
 </html>

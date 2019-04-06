@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+</head>
+<body>
+    <h2>添加国家</h2>
+    <form action="/blog/addcountry/" method="post">
+        {% csrf_token %}
+        添加国家：<input type="text" placeholder="国家名" name="cname">
+        <br />
+        <input type="submit" value="添加">
+    </form>
+
+</body>
+</html>

@@ -33,7 +33,7 @@ urlpatterns = [
     path('student/<int:classname>/<str:name>', sv.search),
     path('student/time/<year>/<int:month>/<slug:day>/', sv.check),
     path('student/info', sv.getuser),
-    # path('', uv.index),
+    path('', bv.rootindex),
     path('admin/', admin.site.urls),
     # path('user/', uv.home)
     # path('user/', UserView.as_view())
