@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询结果</title>
+</head>
+<body>
+    <h1>查到的结果</h1>
+    {% if searchres %}
+        <ol>
+            {% for res in searchres %}
+                <li>
+                    <span>{{ res.uname }}</span>
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <h2>没有找到</h2>
+    {% endif %}
+</body>
+</html>
